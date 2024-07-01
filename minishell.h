@@ -14,6 +14,13 @@
 // 4= outfile
 // 5= pipe
 
+typedef struct s_env
+{
+    char *key;
+    char *value;
+    struct s_env *next;
+} t_env;
+
 typedef struct s_shell
 {
     char *arg;
@@ -31,16 +38,15 @@ typedef struct s_minishell
 } t_minishell;
 
 void    execute(char *cmd, char **env);
-char    **get_envp(char **env);
+void    getenvp(char **env);
 
 /**********    Linked_list    **********/
 
 void				ft_lstdelone(t_minishell *list, void (*del)(int));
 void				ft_lstadd_front(t_minishell **lst, t_minishell *new);
 void				ft_lstadd_back(t_minishell **lst, t_minishell *new);
-void				ft_linked_list(t_minishell **shell, t_shell *list);
-t_minishell				*ft_lstnew(void);
-t_minishell				*ft_lstlast(t_minishell *lst);
+t_minishell			*ft_lstnew(void);
+t_minishell			*ft_lstlast(t_minishell *lst);
 
 /****************     LIBFT    ****************/
 
