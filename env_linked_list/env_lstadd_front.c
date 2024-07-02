@@ -1,4 +1,3 @@
-
 #include "../minishell.h"
 
 void	env_lstadd_front(t_env **lst, t_env *new)

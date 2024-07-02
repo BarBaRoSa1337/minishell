@@ -19,8 +19,8 @@ void forming_list(t_minishell **my_struct, t_shell *shell)
         else if (shell->type == 5)
         {
             new = ft_lstnew();
-            ft_lstadd_back(&my_struct, new);
-            head = *my_struct->next;
+            ft_lstadd_back(my_struct, new);
+            head = head->next;
         }
         shell = shell->next;
     }

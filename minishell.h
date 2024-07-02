@@ -1,12 +1,17 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include <limits.h>
 
 // 1= infile
 // 2= cmd
@@ -37,18 +42,14 @@ typedef struct s_minishell
     struct s_minishell *next;
 } t_minishell;
 
-void    execute(char *cmd, char **env);
-void    getenvp(char **env);
+/*********************    Linked_list    *********************/
 
-/**********    Linked_list    **********/
-
-void				ft_lstdelone(t_minishell *list, void (*del)(int));
 void				ft_lstadd_front(t_minishell **lst, t_minishell *new);
 void				ft_lstadd_back(t_minishell **lst, t_minishell *new);
 t_minishell			*ft_lstnew(void);
 t_minishell			*ft_lstlast(t_minishell *lst);
 
-/****************     LIBFT    ****************/
+/**********************     LIBFT    **********************/
 
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -84,5 +85,35 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+/**************** get_next_line  *******************/
+
+char		*get_next_line(int fd);
+char		*ft_readfile(int fd, char *buffer);
+char		*returnline(char *buffer);
+
+/**************** builtins  *******************/
+
+void build_cd(char *direction);
+void build_echo(char *str, int nl, int fd);
+void build_env(t_env *v);
+void build_exit(int status);
+void build_export(char *str, t_env **v);
+void build_pwd(void);
+void build_unset(char *str, t_env **v);
+
+/************** env_linked_list  ****************/
+
+void env_lstadd_back(t_env **lst, t_env *new);
+void env_lstadd_front(t_env **lst, t_env *new);
+t_env *env_lstlast(t_env *lst);
+t_env *env_lstnew(void);
+void get_envp(char **envp, t_env **head);
+t_env *split_env(char *str);
+
+/******************* execution ********************/
+
+void forming_list(t_minishell **my_struct, t_shell *shell);
+void execute(t_minishell *s_execution);
 
 #endif

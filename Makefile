@@ -1,21 +1,26 @@
 
-SRCS = execution.c get_envp.c execute.c linked_list/ft_lstadd_back.c linked_list/ft_lstnew.c linked_list/ft_lstlast.c \
-		linked_list/ft_linked_list.c linked_list/ft_lstadd_front.c 
-SRCS_LIBFT = libft/ft_atoi.c libft/ft_isdigit.c libft/ft_memset.c libft/ft_strlen.c libft/ft_bzero.c libft/ft_isprint.c libft/ft_strchr.c		\
-	libft/ft_strncmp.c libft/ft_calloc.c libft/ft_memchr.c libft/ft_strdup.c libft/ft_strnstr.c libft/ft_isalnum.c libft/ft_memcmp.c 		\
-	libft/ft_strjoin.c libft/ft_strrchr.c libft/ft_isalpha.c libft/ft_memcpy.c libft/ft_strlcat.c libft/ft_tolower.c libft/ft_isascii.c	\
-	libft/ft_memmove.c libft/ft_strlcpy.c libft/ft_toupper.c libft/ft_substr.c libft/ft_strjoin.c libft/ft_strtrim.c libft/ft_split.c 	\
-	libft/ft_itoa.c libft/ft_strmapi.c libft/ft_striteri.c libft/ft_putchar_fd.c libft/ft_putstr_fd.c libft/ft_putendl_fd.c libft/ft_putnbr_fd.c
+SRCS = linked_list/ft_lstadd_back.c linked_list/ft_lstnew.c linked_list/ft_lstlast.c linked_list/ft_lstadd_front.c \
+env_linked_list/env_lstadd_back.c env_linked_list/env_lstadd_front.c env_linked_list/env_lstnew.c \
+env_linked_list/env_lstlast.c env_linked_list/get_envp.c env_linked_list/split_env.c get_next_line.c \
+execute.c builtins/build_cd.c builtins/build_echo.c builtins/build_env.c builtins/build_exit.c \
+builtins/build_export.c builtins/build_pwd.c builtins/build_unset.c forming_list.c main.c\
+
+SRCS_LIBFT = 42_library/ft_atoi.c 42_library/ft_isdigit.c 42_library/ft_memset.c 42_library/ft_strlen.c \
+	42_library/ft_bzero.c 42_library/ft_isprint.c 42_library/ft_strchr.c 42_library/ft_strncmp.c 	\
+	42_library/ft_calloc.c 42_library/ft_memchr.c 42_library/ft_strdup.c 42_library/ft_strnstr.c 	\
+	42_library/ft_isalnum.c 42_library/ft_memcmp.c 42_library/ft_strjoin.c 42_library/ft_strrchr.c  \
+	42_library/ft_isalpha.c 42_library/ft_memcpy.c 42_library/ft_strlcat.c 42_library/ft_tolower.c  \
+	42_library/ft_isascii.c 42_library/ft_memmove.c 42_library/ft_strlcpy.c 42_library/ft_toupper.c \
+	42_library/ft_substr.c 42_library/ft_strtrim.c 42_library/ft_split.c 42_library/ft_itoa.c \
+	42_library/ft_strmapi.c 42_library/ft_striteri.c 42_library/ft_putchar_fd.c 42_library/ft_putstr_fd.c \
+	42_library/ft_putendl_fd.c 42_library/ft_putnbr_fd.c
 
 OBJS = $(SRCS:.c=.o) $(SRCS_LIBFT:.c=.o)
 
 NAME = minishell
 
-#OBJS_LIBFT = $(SRCS:.c=.o) 
-
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = #-fsanitize=address #-Wall -Werror -Wextra 
 CC = gcc
-
 
 all : $(NAME) 
 

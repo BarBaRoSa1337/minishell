@@ -18,6 +18,8 @@ char	*ft_strchr(const char *s, int c)
 	char	*str;
 
 	l = 0;
+	if (!s)
+		return (NULL);
 	str = (char *)s;
 	while (str[l] != '\0')
 	{
@@ -26,7 +28,5 @@ char	*ft_strchr(const char *s, int c)
 		else
 			l++;
 	}
-	if (str[l] == (char) c)
-		return (&str[l]);
 	return (NULL);
 }
