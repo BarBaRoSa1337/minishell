@@ -2,7 +2,7 @@
 
 void build_pwd(void)
 {
-        char path[5000];
+        char path[MAX_PATH];
         if (getcwd(path, sizeof(path)) == NULL)
                 perror("Error\n");
         ft_putstr_fd(path, 1);
