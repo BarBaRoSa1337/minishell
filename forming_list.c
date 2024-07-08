@@ -4,10 +4,13 @@ void forming_list(t_minishell **my_struct, t_shell *shell)
 {
     t_minishell *head;
     t_minishell *new;
+    int id = 0;
 
     head = *my_struct;
     while(shell)
     {
+        head->pid = id;
+        id++;
         if (shell->type == 1)
             head->infile = shell->arg;
         else if (shell->type == 2)

@@ -1,18 +1,5 @@
 #include "minishell.h"
 
-// int main(int ac, char **av, char **env)
-// {
-//     t_env *v;
-//     t_shell *s_parsing;
-//     t_minishell *s_execution;
-    
-//     get_envp(env, &v);
-//     s_parsing = parsing(ac, av, env);
-//     s_execution = ft_lstnew();
-//     forming_list(&s_execution, s_parsing);
-//     execute(s_execution);
-// }
-
 void    builtins(char *str, t_env **v)
 {
     if (ft_strncmp(str, "cd\n", sizeof(str)) == 0)
@@ -35,13 +22,12 @@ void    builtins(char *str, t_env **v)
 
 int main(int ac, char **av, char **env)
 {
-    t_env *v;
-    char *str = NULL;
-
-    v = NULL;
-    get_envp(env, &v);
+    t_env *v = NULL;
+    t_shell *p = NULL;
+    t_minishell *e = NULL; 
     
-    build_export("hello=", &v);
-    // build_export(NULL, &v);
-    build_env(v);
-}
+    get_envp(env, &v);
+    parssing(ac, av, env, &p);
+    forming_list(&e, p);
+    execute_cmd(e);
+} 
