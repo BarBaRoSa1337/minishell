@@ -24,7 +24,7 @@ typedef struct s_var  // for pipex functions
 	char	*cmd_path_2;
 }			t_var;
 
-typedef struct s_env // for socker the env
+typedef struct s_env // for store the env
 {
     char *key;
     char *value;
@@ -38,22 +38,22 @@ typedef struct s_shell // comming from parsing          // 1= infile
     struct s_shell *next;                               // 5= pipe
 } t_shell;
 
-typedef struct s_minishell // struct for execution
+typedef struct s_ms // struct for execution
 {
-    char *infile;
     char *cmd;
-    char *arg;
-    char *outfile;
+    char **arg;
+    int infile;
+    int outfile;
     int  pid;
-    struct s_minishell *next;
-} t_minishell;
+    struct s_ms *next;
+} t_ms;
 
-/*********************    Linked_list    *********************/
+/*********************    Linked_list    *******************/
 
-t_minishell			*ft_lstnew(void);
-t_minishell			*ft_lstlast(t_minishell *lst);
-void				ft_lstadd_back(t_minishell **lst, t_minishell *new);
-void				ft_lstadd_front(t_minishell **lst, t_minishell *new);
+t_ms			*ft_lstnew(void);
+t_ms			*ft_lstlast(t_ms *lst);
+void				ft_lstadd_back(t_ms **lst, t_ms *new);
+void				ft_lstadd_front(t_ms **lst, t_ms *new);
 
 /**********************     LIBFT    **********************/
 
@@ -109,7 +109,7 @@ int			ft_decimal_to_hexa(unsigned int decimal, int len);
 void		ft_free(char **ptr);
 char		**command_tableau(char *str);
 char		*if_accessible(char *cmd, char **env);
-int			check_cmd(char **av, char **env, t_var *t);
+void		check_cmd(char *cmd, char *env, t_var *t);
 void		ft_pipe(char **av, char **env, t_var *var);
 
 /**************** get_next_line  *******************/
@@ -139,7 +139,9 @@ void env_lstadd_front(t_env **lst, t_env *new);
 
 /******************* execution ********************/
 
-void execute_cmd(t_minishell *e);
-void forming_list(t_minishell **my_struct, t_shell *shell);
+void execute_cmd(t_ms *e, t_env *v, t_var *var, char **envp);
+void forming_list(t_ms **my_struct, t_shell *shell);
+char *searsh_env(t_env *v);
+int  simple_execute(int in, int out, t_var *var, char **env);
 
-#endif
+# endif

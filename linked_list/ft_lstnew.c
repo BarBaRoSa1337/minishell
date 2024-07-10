@@ -1,10 +1,10 @@
 #include "../minishell.h"
 
-t_minishell	*ft_lstnew(void)
+t_ms	*ft_lstnew(void)
 {
-	t_minishell	*new_node;
+	t_ms	*new_node;
 
-	new_node = (t_minishell *)malloc(sizeof(t_minishell));
+	new_node = (t_ms *)malloc(sizeof(t_ms));
 	if (!new_node)
 		return (0);
 	new_node->infile = NULL;

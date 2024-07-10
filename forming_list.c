@@ -1,9 +1,9 @@
 #include "minishell.h"
 
-void forming_list(t_minishell **my_struct, t_shell *shell)
+void forming_list(t_ms **my_struct, t_shell *shell)
 {
-    t_minishell *head;
-    t_minishell *new;
+    t_ms *head;
+    t_ms *new;
     int id = 0;
 
     head = *my_struct;

@@ -1,16 +1,19 @@
 #include "../minishell.h"
 
-char	**command_tableau(char *str)
+char *searsh_env(t_env *v)
 {
-	char	**double_path;
+	char *env;
 
-	if (ft_strchr(str, '\t') != NULL)
+	while(v)
 	{
-		double_path = ft_split(str, '\t');
-		return (double_path);
+		if (ft_strncmp(v->key, "PATH", ft_strlen(v->key)) == 0)
+		{
+			env = ft_strdup(v->value);
+			return (env);
+		}
+		v = v->next;
 	}
-	double_path = ft_split(str, ' ');
-	return (double_path);
+	return (NULL);
 }
 
 void	ft_free(char **ptr)

@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void	ft_lstdelone(t_list *list, void (*del)(int))
+void	ft_lstdelone(t_ms *list, void (*del)(int))
 {
 	if (!list || !del)
 		return ;

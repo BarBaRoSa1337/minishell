@@ -29,5 +29,5 @@ int main(int ac, char **av, char **env)
     get_envp(env, &v);
     parssing(ac, av, env, &p);
     forming_list(&e, p);
-    execute_cmd(e);
+    execute_cmd(e, v, env);
 } 

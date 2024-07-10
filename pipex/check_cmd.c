@@ -1,17 +1,28 @@
 #include "../minishell.h"
 
-void	check_cmd(char **av, char **env, t_var *t)
+char	**command_tableau(char *cmd)
 {
-	t->cmd_1 = command_tableau(av[2]);
-	t->cmd_2 = command_tableau(av[3]);
+	char	**cmd_plus_arg;
 
-	if (t->cmd_1[0] != NULL)
-		t->cmd_path_1 = if_accessible(t->cmd_1[0], env);
-	if (t->cmd_2[0] != NULL)
-		t->cmd_path_2 = if_accessible(t->cmd_2[0], env);
+	if (ft_strchr(cmd, '\t') != NULL)
+	{
+		cmd_plus_arg = ft_split(cmd, '\t');
+		return (cmd_plus_arg);
+	}
+	cmd_plus_arg = ft_split(cmd, ' ');
+	return (cmd_plus_arg);
+}
 
-	if (!(t->cmd_path_1) || t->cmd_1[0] == NULL)
-		ft_printf("%s: command not found\n", t->cmd_1[0]);
-	if (!(t->cmd_path_2) || t->cmd_2[0] == NULL)
-		ft_printf("%s: command not found\n", t->cmd_2[0]);
+void	check_cmd(char *cmd, char *env, t_var *t)
+{
+	if (env)
+	{
+		t->cmd_1 = command_tableau(cmd);
+
+		if (t->cmd_1[0] != NULL)
+			t->cmd_path_1 = if_accessible(t->cmd_1[0], env);
+
+		if (!(t->cmd_path_1) || t->cmd_1[0] == NULL)
+			ft_printf("%s: command not found\n", t->cmd_1[0]);
+	}
 }

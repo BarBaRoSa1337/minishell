@@ -1,7 +1,7 @@
 
 #include "../minishell.h"
 
-t_minishell	*ft_lstlast(t_minishell *lst)
+t_ms	*ft_lstlast(t_ms *lst)
 {
 	if (!lst)
 		return (NULL);
