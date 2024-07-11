@@ -4,7 +4,7 @@ env_linked_list/env_lstadd_back.c env_linked_list/env_lstadd_front.c env_linked_
 env_linked_list/env_lstlast.c env_linked_list/get_envp.c env_linked_list/split_env.c get_next_line.c \
 builtins/build_cd.c builtins/build_echo.c builtins/build_env.c builtins/build_exit.c builtins/build_export.c \
 builtins/build_pwd.c builtins/build_unset.c forming_list.c main.c execution/execute_cmd.c \
-execution/simple_execute.c
+execution/simple_execute.c execution/execute_builtins.c
 
 SRCS_LIBFT = 42_library/ft_atoi.c 42_library/ft_isdigit.c 42_library/ft_memset.c 42_library/ft_strlen.c \
 	42_library/ft_bzero.c 42_library/ft_isprint.c 42_library/ft_strchr.c 42_library/ft_strncmp.c 	\

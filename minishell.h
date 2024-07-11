@@ -130,7 +130,7 @@ char		*ft_readfile(int fd, char *buffer);
 
 void build_pwd(void);
 void build_env(t_env *v);
-void build_exit(int status);
+void build_exit(char *status);
 void build_cd(char *direction);
 void build_unset(char *str, t_env **v);
 void build_export(char *str, t_env **v);
@@ -149,6 +149,7 @@ void env_lstadd_front(t_env **lst, t_env *new);
 
 char    *searsh_env(t_env *v);
 int     simple_execute(t_ms *e, char **env);
+int     execute_builtins(t_ms *e, t_env **v);
 void    forming_list(t_ms **my_struct, t_shell *shell);
 void    execute_cmd(t_ms *e, t_env *v, char **envp, int tmp);
 

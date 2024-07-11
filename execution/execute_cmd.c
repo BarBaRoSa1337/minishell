@@ -1,6 +1,5 @@
 #include "../minishell.h"
 
-
 void execute_cmd(t_ms *e, t_env *v, char **envp, int tmp)
 {
     int fd[2];
