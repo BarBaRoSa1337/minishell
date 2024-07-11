@@ -13,7 +13,7 @@ int	simple_execute(t_ms *e, char **env)
 		close(in);
 		dup2(out, 1);
 		close(out);
-		if (execve(var->cmd_path_1, var->cmd_1, env) == -1)
+		if (execve(e->cmd, e->arg, env) == -1)
 			exit(0);
 	}
 	return (pid);

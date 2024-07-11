@@ -3,14 +3,13 @@
 
 void execute_cmd(t_ms *e, t_env *v, char **envp, int tmp)
 {
-    char *env;
     int fd[2];
-    int tmp;
+    int pid;
 
     if (!e)
         return;
-    env = searsh_env(v);
-    // check_cmd(e->cmd, env);
+    
+    check_cmd(e, v);
     if (e != NULL)
     {
         pipe(fd);
@@ -24,9 +23,7 @@ void execute_cmd(t_ms *e, t_env *v, char **envp, int tmp)
         if (e->outfile == 1 && e->next)
             e->outfile = fd[1];
     }
-    simple_execute(e, envp);
+    pid = simple_execute(e, envp);
     tmp = fd[1];
     // dup2(tmp, fd[1]);
-
-    execute_cmd(e->next, tmp);
 }

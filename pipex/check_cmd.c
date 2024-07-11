@@ -1,28 +1,33 @@
 #include "../minishell.h"
 
-char	**command_tableau(char *cmd)
+char *searsh_env(t_env *v)
 {
-	char	**cmd_plus_arg;
+	char *env;
 
-	if (ft_strchr(cmd, '\t') != NULL)
+	while(v)
 	{
-		cmd_plus_arg = ft_split(cmd, '\t');
-		return (cmd_plus_arg);
+		if (ft_strncmp(v->key, "PATH", ft_strlen(v->key)) == 0)
+		{
+			env = ft_strdup(v->value);
+			return (env);
+		}
+		v = v->next;
 	}
-	cmd_plus_arg = ft_split(cmd, ' ');
-	return (cmd_plus_arg);
+	return (NULL);
 }
 
-void	check_cmd(char *cmd, char *env, t_var *t)
+char	*check_cmd(t_ms *e, t_env *v)
 {
+	char *env;
+
+	env = searsh_env(v);
 	if (env)
 	{
-		t->cmd_1 = command_tableau(cmd);
+		if (e->cmd != NULL)
+			e->cmd = if_accessible(e->cmd, env);
 
-		if (t->cmd_1[0] != NULL)
-			t->cmd_path_1 = if_accessible(t->cmd_1[0], env);
-
-		if (!(t->cmd_path_1) || t->cmd_1[0] == NULL)
-			ft_printf("%s: command not found\n", t->cmd_1[0]);
+		if (!e->cmd)
+			ft_printf("%s: command not found\n", e->cmd);
 	}
+	return(e->cmd);
 }

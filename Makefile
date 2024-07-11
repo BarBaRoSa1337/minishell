@@ -4,6 +4,7 @@ env_linked_list/env_lstadd_back.c env_linked_list/env_lstadd_front.c env_linked_
 env_linked_list/env_lstlast.c env_linked_list/get_envp.c env_linked_list/split_env.c get_next_line.c \
 builtins/build_cd.c builtins/build_echo.c builtins/build_env.c builtins/build_exit.c builtins/build_export.c \
 builtins/build_pwd.c builtins/build_unset.c forming_list.c main.c execution/execute_cmd.c \
+execution/simple_execute.c
 
 SRCS_LIBFT = 42_library/ft_atoi.c 42_library/ft_isdigit.c 42_library/ft_memset.c 42_library/ft_strlen.c \
 	42_library/ft_bzero.c 42_library/ft_isprint.c 42_library/ft_strchr.c 42_library/ft_strncmp.c 	\
@@ -15,11 +16,11 @@ SRCS_LIBFT = 42_library/ft_atoi.c 42_library/ft_isdigit.c 42_library/ft_memset.c
 	42_library/ft_strmapi.c 42_library/ft_striteri.c 42_library/ft_putchar_fd.c 42_library/ft_putstr_fd.c \
 	42_library/ft_putendl_fd.c 42_library/ft_putnbr_fd.c
 
-SRC_PRINTF = ft_printf/ft_printf.c ft_printf/ft_decimal_to_hex.c ft_printf/ft_check.c \
+SRCS_PRINTF = ft_printf/ft_printf.c ft_printf/ft_decimal_to_hex.c ft_printf/ft_check.c \
 	ft_printf/ft_decimal_to_hexa.c ft_printf/ft_put_positive.c ft_printf/ft_putnbr.c  \
 	ft_printf/ft_putstr.c ft_printf/ft_put_adress.c ft_printf/ft_putchar.c
 
-SRC_PIPEX = ft_pipe.c if_accessible.c check_cmd.c
+SRCS_PIPEX = pipex/ft_pipe.c pipex/if_accessible.c pipex/check_cmd.c pipex/tools.c
 
 OBJS = $(SRCS:.c=.o) $(SRCS_LIBFT:.c=.o) $(SRCS_PRINTF:.c=.o) $(SRCS_PIPEX:.c=.o)
 

@@ -13,6 +13,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <limits.h>
+# include <sys/wait.h>
 
 
 
@@ -31,20 +32,28 @@ typedef struct s_env // for store the env
     struct s_env *next;
 } t_env;
 
-typedef struct s_shell // comming from parsing          // 1= infile
-{                                                       // 2= cmd
-    char *arg;                                          // 3= arg
-    int type;                                           // 4= outfile
-    struct s_shell *next;                               // 5= pipe
+typedef struct s_arg
+{
+    char *arg;
+    struct s_arg *next;
+} t_arg;
+
+typedef struct s_shell // comming from parsing  
+{                                    
+    int in;
+    int out;                      
+    char *cmd;
+    t_arg *argument;
+    struct s_shell *next;                          
 } t_shell;
 
 typedef struct s_ms // struct for execution
 {
-    char *cmd;
-    char **arg;
-    int infile;
-    int outfile;
     int  pid;
+    char *cmd;
+    int infile;
+    char **arg;
+    int outfile;
     struct s_ms *next;
 } t_ms;
 
@@ -107,9 +116,8 @@ int			ft_decimal_to_hexa(unsigned int decimal, int len);
 /**************** pipex  *******************/
 
 void		ft_free(char **ptr);
-char		**command_tableau(char *str);
-char		*if_accessible(char *cmd, char **env);
-void		check_cmd(char *cmd, char *env, t_var *t);
+char	    *check_cmd(t_ms *e, t_env *v);
+char		*if_accessible(char *cmd, char *env);
 void		ft_pipe(char **av, char **env, t_var *var);
 
 /**************** get_next_line  *******************/
@@ -139,9 +147,9 @@ void env_lstadd_front(t_env **lst, t_env *new);
 
 /******************* execution ********************/
 
-void execute_cmd(t_ms *e, t_env *v, t_var *var, char **envp);
-void forming_list(t_ms **my_struct, t_shell *shell);
-char *searsh_env(t_env *v);
-int  simple_execute(int in, int out, t_var *var, char **env);
+char    *searsh_env(t_env *v);
+int     simple_execute(t_ms *e, char **env);
+void    forming_list(t_ms **my_struct, t_shell *shell);
+void    execute_cmd(t_ms *e, t_env *v, char **envp, int tmp);
 
 # endif

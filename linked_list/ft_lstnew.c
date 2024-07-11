@@ -7,10 +7,10 @@ t_ms	*ft_lstnew(void)
 	new_node = (t_ms *)malloc(sizeof(t_ms));
 	if (!new_node)
 		return (0);
-	new_node->infile = NULL;
+	new_node->infile = 0;
 	new_node->cmd = NULL;
 	new_node->arg = NULL;
-	new_node->outfile = NULL;
+	new_node->outfile = 1;
 	new_node->next = NULL;
 	return (new_node);
 }

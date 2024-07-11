@@ -22,12 +22,13 @@ void    builtins(char *str, t_env **v)
 
 int main(int ac, char **av, char **env)
 {
+    t_ms *e = NULL; 
     t_env *v = NULL;
     t_shell *p = NULL;
-    t_minishell *e = NULL; 
     
     get_envp(env, &v);
-    parssing(ac, av, env, &p);
+    // parssing(ac, av, env, &p);
+    e = ft_lstnew();
     forming_list(&e, p);
-    execute_cmd(e, v, env);
+    execute_cmd(e, v, env, 0);
 } 

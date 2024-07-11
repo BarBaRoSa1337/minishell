@@ -1,31 +1,5 @@
 #include "../minishell.h"
 
-char	**split_path(char **env)
-{
-	int		i;
-	char	*path_oneline;
-	char	**split_path;
-
-	path_oneline = NULL;
-	split_path = NULL;
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=", 4) == 0)
-		{
-			path_oneline = ft_substr(env[i], 5, ft_strlen(env[i]));
-			break ;
-		}
-		else
-			i++;
-	}
-	if (!path_oneline)
-		return (NULL);
-	split_path = ft_split(path_oneline, ':');
-	free(path_oneline);
-	return (split_path);
-}
-
 char	*accessible(char *path, char *cmd)
 {
 	char	*partiel;
@@ -55,13 +29,13 @@ char	*accessible(char *path, char *cmd)
 	}
 }
 
-char	*if_accessible(char *cmd, char **env)
+char	*if_accessible(char *cmd, char *env)
 {
 	char	**splited_path;
 	char	*command_path;
 	int		l;
 
-	splited_path = split_path(env);
+	splited_path = ft_split(env, ':');
 	if (!splited_path)
 	{
 		if (access(cmd, F_OK | X_OK) == -1)
