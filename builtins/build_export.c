@@ -1,14 +1,20 @@
 #include "../minishell.h"
 
-void    build_export(char *str, t_env **v)
+void    build_export(char **str, t_env **v)
 {
     t_env *new;
     t_env *head;
+    int i;
 
-    if (str)
+    i = 0;
+    if (str && str[i])
     {
-        new = split_env(str);
-        env_lstadd_back(v, new);
+        while(str[i])
+        {
+            new = split_env(str[i]);
+            env_lstadd_back(v, new);
+            i++;
+        }
     }
     else
     {

@@ -45,7 +45,7 @@ typedef struct s_shell // comming from parsing
     char *cmd;
     t_arg *argument;
     struct s_shell *next;                          
-} t_shell;
+} t_shell; 
 
 typedef struct s_ms // struct for execution
 {
@@ -115,7 +115,6 @@ int			ft_decimal_to_hexa(unsigned int decimal, int len);
 
 /**************** pipex  *******************/
 
-void		ft_free(char **ptr);
 char	    *check_cmd(t_ms *e, t_env *v);
 char		*if_accessible(char *cmd, char *env);
 void		ft_pipe(char **av, char **env, t_var *var);
@@ -130,11 +129,11 @@ char		*ft_readfile(int fd, char *buffer);
 
 void build_pwd(void);
 void build_env(t_env *v);
-void build_exit(char *status);
-void build_cd(char *direction);
-void build_unset(char *str, t_env **v);
-void build_export(char *str, t_env **v);
-void build_echo(char *str, int nl, int fd);
+void build_exit(char **status);
+void build_cd(char **direction);
+void build_unset(char **str, t_env **v);
+void build_export(char **str, t_env **v);
+void build_echo(char **str, int fd);
 
 /************** env_linked_list  ****************/
 
@@ -147,7 +146,9 @@ void env_lstadd_front(t_env **lst, t_env *new);
 
 /******************* execution ********************/
 
+void	ft_free(char **ptr);
 char    *searsh_env(t_env *v);
+int     multiple_arg(char **ptr);
 int     simple_execute(t_ms *e, char **env);
 int     execute_builtins(t_ms *e, t_env **v);
 void    forming_list(t_ms **my_struct, t_shell *shell);

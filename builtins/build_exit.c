@@ -1,5 +1,6 @@
 #include "../minishell.h"
 
+
 int its_num(char *str)
 {
         int i;
@@ -15,16 +16,21 @@ int its_num(char *str)
         return (0);
 }
 
-void build_exit(char *status)
+void build_exit(char **status)
 {
-        if (!status)
+        if (!status || !status[0])
                 exit(0);
-        else if (its_num(status) == -1)
+        else if (multiple_arg(status) != -1)
+        {
+                ft_printf("exit: too many arguments");
+                exit(1);
+        }
+        else if (its_num(status[0]) == -1)
         {
                 ft_printf("exit: %s: numeric argument required", status);
                 exit(2);
         }
-        else if (its_num(status) == 0) 
-                exit(ft_atoi(status));
+        else if (its_num(status[0]) == 0) 
+                exit(ft_atoi(status[0]));
 }
 
