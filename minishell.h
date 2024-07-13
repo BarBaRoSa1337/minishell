@@ -5,6 +5,8 @@
 #  define BUFFER_SIZE 1
 # endif
 
+# define PATH_SIZE 500
+
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdarg.h>
@@ -115,7 +117,7 @@ int			ft_decimal_to_hexa(unsigned int decimal, int len);
 
 /**************** pipex  *******************/
 
-char	    *check_cmd(t_ms *e, t_env *v);
+void	    check_cmd(t_ms **e, t_env *v);
 char		*if_accessible(char *cmd, char *env);
 void		ft_pipe(char **av, char **env, t_var *var);
 
@@ -152,6 +154,10 @@ int     multiple_arg(char **ptr);
 int     simple_execute(t_ms *e, char **env);
 int     execute_builtins(t_ms *e, t_env **v);
 void    forming_list(t_ms **my_struct, t_shell *shell);
-void    execute_cmd(t_ms *e, t_env *v, char **envp, int tmp);
+void    execute_cmd(t_ms **e, t_env *v, char **envp, int tmp);
+
+void    node_1(t_ms **e);
+void    node_2(t_ms **e);
+void    node_3(t_ms **e);
 
 # endif

@@ -3,18 +3,22 @@
 int	simple_execute(t_ms *e, char **env)
 {
 	int	pid;
-	int	in;
-    int out;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(in, 0);
-		close(in);
-		dup2(out, 1);
-		close(out);
+		dup2(e->infile, 0);
+		close(e->infile);
+		dup2(e->outfile, 1);
+		close(e->outfile);
+		
+		printf("[%s]  args: %s\n", e->cmd, e->arg[0]);
+
 		if (execve(e->cmd, e->arg, env) == -1)
+		{
+			printf("error\n");
 			exit(0);
+		}
 	}
 	return (pid);
 }

@@ -17,6 +17,6 @@ int    execute_builtins(t_ms *e, t_env **v)
     else if (ft_strncmp(e->cmd, "exit", sizeof(e->cmd)) == 0)
         build_exit(e->arg);
     else
-        return (0);
-    return (1);
+        return (-1);
+    return (0);
 }

@@ -16,18 +16,17 @@ char *searsh_env(t_env *v)
 	return (NULL);
 }
 
-char	*check_cmd(t_ms *e, t_env *v)
+void	check_cmd(t_ms **e, t_env *v)
 {
 	char *env;
 
 	env = searsh_env(v);
 	if (env)
 	{
-		if (e->cmd != NULL)
-			e->cmd = if_accessible(e->cmd, env);
+		if ((*e)->cmd != NULL)
+			(*e)->cmd = if_accessible((*e)->cmd, env);
 
-		if (!e->cmd)
-			ft_printf("%s: command not found\n", e->cmd);
+		if (!(*e)->cmd)
+			ft_printf("%s: command not found\n", (*e)->cmd);
 	}
-	return(e->cmd);
 }
