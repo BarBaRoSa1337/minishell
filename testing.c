@@ -1,60 +1,49 @@
 #include "minishell.h"
 
-void    node_1(t_ms **e)
+t_shell	*new_node(void)
 {
-    char **a;
+	t_shell	*new_node;
 
-    a = malloc (3 * sizeof(char *));
-    a[0] = ft_strdup("ls");
-    a[1] = ft_strdup("-la");
-    a[2] = NULL;
+	new_node = (t_shell *)malloc(sizeof(t_shell));
+	if (!new_node)
+		return (0);
+	new_node->in = 0;
+	new_node->cmd = NULL;
+	new_node->argument = NULL;
+	new_node->out = 1;
+	new_node->next = NULL;
+	return (new_node);
+}
 
-    
+void    node_1(t_shell **e)
+{
     int fd_out = open("outfile", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
-    (*e)->pid = 0;
-    (*e)->cmd = ft_strdup("pwd");
-    (*e)->infile;
-    (*e)->outfile = fd_out;
-    (*e)->arg = NULL;
+    (*e)->cmd = ft_strdup("ls");
+    (*e)->in;
+    (*e)->out = fd_out;
+    (*e)->argument = NULL;
 }
 
-void    node_2(t_ms **e)
+void    node_2(t_shell **e)
 {
-    char **b = NULL;
-    
-    b = malloc (2 * sizeof(char *));
-
-    b[0] = ft_strdup("..");
-    // b[1] = ft_strdup("a");
-    b[1] = NULL;
 
     int fd_in = open("Makefile", O_RDONLY);
-    int fd_out = open("out", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    int fd_out = open("outfile_2", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
-    (*e)->pid = 1;
-    (*e)->cmd = ft_strdup("cd");
-    (*e)->infile = fd_in;
-    (*e)->outfile =  fd_out;
-    (*e)->arg = b;
+    (*e)->cmd = ft_strdup("cat");
+    (*e)->in = fd_in;
+    (*e)->out =  fd_out;
+    (*e)->argument = NULL;
 }
 
-void    node_3(t_ms **e)
+void    node_3(t_shell **e)
 {
-    char **b = NULL;
-    
-    b = malloc (2 * sizeof(char *));
-
-    b[0] = ft_strdup("..");
-    // b[1] = ft_strdup("a");
-    b[1] = NULL;
-
     int fd_in = open("Makefile", O_RDONLY);
-    int fd_out = open("out", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    int fd_out = open("outfile_3", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
-    (*e)->pid = 1;
-    (*e)->cmd = ft_strdup("pwd");
-    (*e)->infile = fd_in;
-    (*e)->outfile =  fd_out;
-    (*e)->arg = NULL;
+    (*e)->cmd = ft_strdup("wc");
+    (*e)->in = fd_in;
+    (*e)->out =  fd_out;
+    (*e)->argument = NULL;
 }

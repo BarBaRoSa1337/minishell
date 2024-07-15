@@ -18,7 +18,6 @@
 # include <sys/wait.h>
 
 
-
 typedef struct s_var  // for pipex functions
 {
 	char	**cmd_1;
@@ -156,8 +155,9 @@ int     execute_builtins(t_ms *e, t_env **v);
 void    forming_list(t_ms **my_struct, t_shell *shell);
 void    execute_cmd(t_ms **e, t_env *v, char **envp, int tmp);
 
-void    node_1(t_ms **e);
-void    node_2(t_ms **e);
-void    node_3(t_ms **e);
+void    node_1(t_shell **e);
+void    node_2(t_shell **e);
+void    node_3(t_shell **e);
+t_shell	*new_node(void);
 
 # endif

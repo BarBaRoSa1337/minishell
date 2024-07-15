@@ -8,22 +8,23 @@ int main(int ac, char **av, char **env)
 
     t_ms *e;
     t_env *v;
+    t_shell *p;
     v = NULL;
     get_envp(env, &v);
 
-    // t_shell *p;
     // char *input;
     // readline(input);
-    // p = NULL;
     // parssing(input, &p);
-    // forming_list(&e, p);
 
+    p = new_node();
+    node_1(p);
+    p->next = new_node();
+    node_2(p->next);
+    p->next->next = new_node();
+    node_3(p->next->next);
+    
     e = ft_lstnew();
-    node_1(&e);
-    e->next = ft_lstnew();
-    node_2(&e->next);
-    e->next->next = ft_lstnew();
-    node_3(&e->next->next);
+    forming_list(&e, p);
     
     if (execute_builtins(e, &v) == -1)
     {
