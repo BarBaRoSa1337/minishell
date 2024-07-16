@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/13 11:58:09 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/13 12:34:14 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	slen = ft_strlen(s);
 	if (start >= slen)
 	{
-		return (ft_calloc(1, 1));
+		sub = malloc(1);
+		sub[0] = '\0';
+		return (sub);
 	}
 	if (len > slen)
 	{
@@ -110,7 +112,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	sub = (char *)malloc(sizeof(char) * len + 1);
 	if (!sub)
+	{
 		return (NULL);
+	}
 	ft_strlcpy(sub, (char *)s + start, len + 1);
 	return (sub);
 }

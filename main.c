@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/13 11:52:55 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:03:50 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,11 @@ t_9aw9aw3   *locate_struct(void)
     return (cmd);
 }
 
-char    *get_str(char *str, int quoeted, t_9aw9aw3 *cmd)
+char    *get_str(char *str, int quoeted, int *index, t_9aw9aw3 *cmd)
 {
     char    *buff;
-    char    tmp;
     int     i;
-    int     j;
 
-    j = 0;
     i = 0;
     if (quoeted == 1)
     {
@@ -46,30 +43,24 @@ char    *get_str(char *str, int quoeted, t_9aw9aw3 *cmd)
         while (str[i] != 34)
             ++i;
     }
-    else
+    // else
+    // {
+    //     while (str[j] == ' ')
+    //         ++j;
+    //     while (ft_charchr(str[i + j], " <|> ") == 0 && )
+    //         ++i;
+    // }
+    while (str[i])
     {
-        while (str[j] == ' ')
-            ++j;
-        while (ft_charchr(str[i], " <|> "))
-        {
-            printf("aba\n");
-            ++i;
-        }
-        // if ((str[i + j] == 34 || str[i + j] == 39) && ft_strchr((str + i + j), " <|> "))
-        // {
-        //     tmp = str[i + j];
-        //     while (str[i + j] != tmp)
-        //         ++i;
-        // }
+        if (ft_charchr(str[i], " <|> ") == 1 && get_qoutes(str, i) == 0)
+            break;
+        ++i;
     }
-    // while (ft_charchr(str[i], " <|> "))
-    //     ++i;
-    cmd->index = i;
-    printf("index %d\n", i);
+    *index = i;
     buff = (char *)malloc(sizeof(char) * (i + 1));
     if (!buff)
         return (NULL);
-    ft_strlcpy(buff, (str + j), (i + 1));
+    ft_strlcpy(buff, str, (i + 1));
     return (buff);
 }
 
@@ -81,27 +72,23 @@ void    process_cmd(char *str)
 
     i = 0;
     cmd = locate_struct();
-    while (str[cmd->index])
+    while (str[i])
     {
-        if (cmd->index > 0 && (str[cmd->index - 1] == 39 || str[cmd->index - 1] == 34) && get_qoutes(str, cmd->index) > 0)
+        if (get_qoutes(str, i) > 0 || ft_charchr(str[i], "\"\'"))
         {
-            buff = get_str(str + cmd->index, get_qoutes(str, cmd->index), cmd);
-            printf("qouted %s\n", buff);
+            buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
+            printf("quoted %s\n", buff);
+            free(buff);
         }
-        if (get_qoutes(str, cmd->index) == 0 && !ft_charchr(str[cmd->index], " <|> "))
+        else if (get_qoutes(str, i) == 0 && ft_charchr(str[i], " <|>\"\'") == 0)
         {
-            printf("original  %d\n", cmd->index);
-            buff = get_str(str + cmd->index, get_qoutes(str, cmd->index), cmd);
-            printf("none quoted %s\n", buff);
-            // cmd->index += cmd->index;
-            //none qouted sequence
+            printf(" this %s\n", str);
+            // buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
+            // printf("none quoted +%s+\n", buff);
+            // free (buff);
         }
-        // else if (ft_charchr(str[i], "<|;>"))
-        // {
-        //     printf("meta char %c\n", str[i]);
-        //     // meta charachters
-        // }
-        ++i;
+        else if (str[i] == ' ')
+            ++i;
     }
 }
 
@@ -109,8 +96,8 @@ void    process_cmd(char *str)
 
 int main(int ac, char **ar)
 {
-    char *str = "hello \"\"world\"\" ''' hello again nega '''  ";
-    // char *str = "hello\"aaaaaaaaaaaa\"  ";
-    process_cmd(str);
+    // char *str = "\"hello\" \"world\" ''' hello again nega '''  ";
+    // char *str = ' "world" ';
+    process_cmd(ar[1]);
     return (0);
 }
