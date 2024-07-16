@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/16 11:28:26 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:16:05 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@
 #include <readline/history.h>
 
 #define CMD 1
-#define FILE 2
-#define FLAG 4
-#define ARROW 5
+#define FLAG 2
+#define O_FILE 3
+#define IN_FILE 4
+#define APP_OUT 5
 #define DOG 6
+#define PIPE 7
+#define N_CMD 8
 
 typedef struct s_9aw9a3
 {
@@ -38,6 +41,8 @@ typedef struct s_9aw9a3
 typedef struct s_a9aw9o3
 {
     struct s_a9aw9o3    *next;
+    int quoted;
+    int     type;
     char                *cmd;
 } t_a9aw9o3;
 
