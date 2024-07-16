@@ -6,13 +6,45 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/16 18:47:53 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:56:28 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char    *get_str(char *str, int quoeted, int *index,t_9aw9aw3 *cmd)
+void    get_meta_chars(char *str, int *index, t_a9aw9o3 **shell)
+{
+    
+}
+
+void    get_none_quoted(char *str, int *index, t_a9aw9o3 **shell)
+{
+    
+}
+
+void    get_single_qoted(char *str, int *index, t_a9aw9o3 **shell)
+{
+    char    *buff;
+    int i;
+
+    i = 0;
+    while (str[i] != 34)
+        ++i;
+    while (str[i])
+    {
+        if (ft_charchr(str[i], " <|> ") == 1 && get_qoutes(str, i) == 0)
+            break;
+        ++i;
+    }
+    *index = i;
+    buff = (char *)malloc(sizeof(char) * (i + 1));
+    if (!buff)
+        return (NULL);
+    ft_strlcpy(buff, str, (i + 1));
+    // ft_lstadd_back(shell, ft_lstnew(type));
+}
+
+char    *get_double_quoted(char *str, int quoeted, int *index,t_9aw9aw3 *cmd)
 {
     char    *buff;
     int     i;
