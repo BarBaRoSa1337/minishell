@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/13 11:59:24 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:28:26 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "/usr/include/readline/readline.h"
-#include "/usr/include/readline/history.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #define CMD 1
 #define FILE 2

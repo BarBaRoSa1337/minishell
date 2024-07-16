@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/16 11:03:50 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:06:43 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_9aw9aw3   *locate_struct(void)
     return (cmd);
 }
 
-char    *get_str(char *str, int quoeted, int *index, t_9aw9aw3 *cmd)
+char    *get_str(char *str, int quoeted, int *index,t_9aw9aw3 *cmd)
 {
     char    *buff;
     int     i;
@@ -76,17 +76,18 @@ void    process_cmd(char *str)
     {
         if (get_qoutes(str, i) > 0 || ft_charchr(str[i], "\"\'"))
         {
+            printf("before %d\n", i);
             buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
+            printf("after %d\n", i);
             printf("quoted %s\n", buff);
             free(buff);
         }
-        else if (get_qoutes(str, i) == 0 && ft_charchr(str[i], " <|>\"\'") == 0)
-        {
-            printf(" this %s\n", str);
-            // buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
-            // printf("none quoted +%s+\n", buff);
-            // free (buff);
-        }
+        // else if (get_qoutes(str, i) == 0 && ft_charchr(str[i], " <|>\"\'") == 0)
+        // {
+        //     buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
+        //     printf("none quoted +%s+\n", buff);
+        //     free (buff);
+        // }
         else if (str[i] == ' ')
             ++i;
     }
@@ -96,8 +97,9 @@ void    process_cmd(char *str)
 
 int main(int ac, char **ar)
 {
-    // char *str = "\"hello\" \"world\" ''' hello again nega '''  ";
+    // char *str = "\"hello\"  ''' hello again nega '''  ";
     // char *str = ' "world" ';
+    // char *input = readline("minishell $");
     process_cmd(ar[1]);
     return (0);
 }

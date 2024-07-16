@@ -2,7 +2,7 @@ SRCS = ft_split.c main.c shell_utils.c extra_utils.c 9aw9a3a_utils.c
 
 OBJ = $(SRCS:.c=.o)
 
-CFLAGS =
+CFLAGS = 
 NAME = minishell
 RM = rm -f
 CC = cc
