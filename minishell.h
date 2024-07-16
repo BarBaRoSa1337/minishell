@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/16 13:16:05 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:21:35 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_a9aw9o3
     char                *cmd;
 } t_a9aw9o3;
 
+t_9aw9aw3   *locate_struct(void);
 char	    *ft_substr(char const *s, unsigned int start, size_t len);
 size_t	    ft_strlcpy(char *dst, char *src, size_t dstsize);
 void	    ft_lstadd_back(t_a9aw9o3 **lst, t_a9aw9o3 *new);

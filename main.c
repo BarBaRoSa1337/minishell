@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/16 13:45:38 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:47:53 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@ char    *get_str(char *str, int quoeted, int *index,t_9aw9aw3 *cmd)
         while (str[i] != 34)
             ++i;
     }
-    // else
-    // {
-    //     while (str[j] == ' ')
-    //         ++j;
-    //     while (ft_charchr(str[i + j], " <|> ") == 0 && )
-    //         ++i;
-    // }
     while (str[i])
     {
         if (ft_charchr(str[i], " <|> ") == 1 && get_qoutes(str, i) == 0)
@@ -49,31 +42,6 @@ char    *get_str(char *str, int quoeted, int *index,t_9aw9aw3 *cmd)
     return (buff);
 }
 
-//  {
-//         if (get_qoutes(str, i) > 0 || ft_charchr(str[i], "\"\'"))
-//         {
-//             printf("before %d\n", i);
-//             buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
-//             printf("after %d\n", i);
-//             printf("quoted %s\n", buff);
-//             free(buff);
-//         }
-//         else if (get_qoutes(str, i) == 0 && ft_charchr(str[i], " <|>\"\'") == 0)
-//         {
-//             printf(" this %s\n", str);
-//             // buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
-//             // printf("none quoted +%s+\n", buff);
-//             // free (buff);
-//         }
-//         // else if (get_qoutes(str, i) == 0 && ft_charchr(str[i], " <|>\"\'") == 0)
-//         // {
-//         //     buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
-//         //     printf("none quoted +%s+\n", buff);
-//         //     free (buff);
-//         // }
-//         else if (str[i] == ' ')
-//             ++i;
-
 void    process_cmd(char *str)
 {
     char        *buff;
@@ -82,22 +50,20 @@ void    process_cmd(char *str)
 
     i = 0;
     cmd = locate_struct();
-    while (str[i])
+    int len = ft_strlen(str);
+    while (i < len)
     {
-        if (get_qoutes(str, i) > 0 || ft_charchr(str[i], "\"\'"))
+        if ((str[i] == '\"' || str[i] == '\''))
         {
-            buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
+            buff = get_str(str, get_qoutes(str, i + 1), &i, cmd);
             printf("quoted %s\n", buff);
             free(buff);
         }
         else if (get_qoutes(str, i) == 0 && ft_charchr(str[i], " <|>\"\'") == 0)
         {
-            printf(" this %s\n", str);
-            // buff = get_str(str + i, get_qoutes(str, i), &i, cmd);
-            // printf("none quoted +%s+\n", buff);
-            // free (buff);
+            
         }
-        else if (str[i] == ' ')
+        else if (str[i] == ' ' || str[i] == '\"' || str[i] == '\'')
             ++i;
     }
 }

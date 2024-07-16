@@ -1,4 +1,4 @@
-SRCS = ft_split.c main.c shell_utils.c extra_utils.c 9aw9a3a_utils.c
+SRCS = ft_split.c main.c shell_utils.c extra_utils.c 9aw9a3a_utils.c process_args.c
 
 OBJ = $(SRCS:.c=.o)
 
