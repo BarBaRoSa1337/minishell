@@ -2,7 +2,7 @@ SRCS = ft_split.c main.c shell_utils.c extra_utils.c 9aw9a3a_utils.c process_arg
 
 OBJ = $(SRCS:.c=.o)
 
-CFLAGS = 
+CFLAGS = -lcurses -lreadline
 NAME = minishell
 RM = rm -f
 CC = cc
@@ -12,10 +12,10 @@ all:$(NAME)
 $(NAME):$(OBJ)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME)
+	@$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
 
 clean:
 	@$(RM) $(OBJ)

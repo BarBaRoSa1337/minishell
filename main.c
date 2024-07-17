@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/17 10:50:48 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:03:52 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void    get_meta_chars(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-        printf("%s\n", buff);
-
+    printf("M %s\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 0));
 }
 
@@ -122,11 +121,12 @@ t_a9aw9o3   *process_cmd(char *str)
         }
         else if (ft_charchr(str[i], "<|>;") && !get_qoutes(str, i))
         {
+            printf("MM");
             get_meta_chars(str + i, &i, &tokens);
         }
         else if (str[i] == ' ')
             ++i;
-        // printf("stoped %c\n",str[i]);
+        printf("stoped %c\n",str[i]);
     }
     return (tokens);
 }
@@ -135,7 +135,9 @@ t_a9aw9o3   *process_cmd(char *str)
 
 int main(int ac, char **ar)
 {
-    
-    process_cmd(ar[1]);
+    // char *input = readline("minishell $:");
+    // process_cmd(input);
+    // read_history(input);
+    printf("%s\n", getenv("USER"));
     return (0);
 }

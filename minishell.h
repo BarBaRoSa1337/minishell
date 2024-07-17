@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/17 10:21:13 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:44:28 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_9aw9a3
 typedef struct s_a9aw9o3
 {
     struct s_a9aw9o3    *next;
-    int quoted;
+    int     quoted;
     int     type;
     char                *cmd;
 } t_a9aw9o3;
