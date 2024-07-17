@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/16 18:56:28 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/17 10:50:48 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,42 @@
 
 void    get_meta_chars(char *str, int *index, t_a9aw9o3 **shell)
 {
-    
+    char    *buff;
+    int     i;
+
+    i = 0;
+    while (ft_charchr(str[i], "<|>;") && !get_qoutes(str, i))
+        ++i;
+    *index = i;
+    buff = (char *)malloc(sizeof(char) * (i + 1));
+    if (!buff)
+        return ;
+    ft_strlcpy(buff, str, (i + 1));
+        printf("%s\n", buff);
+
+    ft_lstadd_back(shell, ft_lstnew(buff, 0));
 }
 
 void    get_none_quoted(char *str, int *index, t_a9aw9o3 **shell)
 {
-    
+    char    *buff;
+    int     i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (ft_charchr(str[i], " <|> ") && !get_qoutes(str, i))
+            break;
+        ++i;
+    }
+    *index = i + 1;
+    buff = (char *)malloc(sizeof(char) * (i + 1));
+    if (!buff)
+        return ;
+    ft_strlcpy(buff, str, (i + 1));
+        printf("N %s\n", buff);
+
+    ft_lstadd_back(shell, ft_lstnew(buff, 0));
 }
 
 void    get_single_qoted(char *str, int *index, t_a9aw9o3 **shell)
@@ -28,85 +58,84 @@ void    get_single_qoted(char *str, int *index, t_a9aw9o3 **shell)
     int i;
 
     i = 0;
-    while (str[i] != 34)
+    while (str[i] != 39)
         ++i;
     while (str[i])
     {
-        if (ft_charchr(str[i], " <|> ") == 1 && get_qoutes(str, i) == 0)
+        if (ft_charchr(str[i], " <|> ") && !get_qoutes(str, i))
             break;
         ++i;
     }
-    *index = i;
+    *index = i + 1;
     buff = (char *)malloc(sizeof(char) * (i + 1));
     if (!buff)
-        return (NULL);
+        return ;
     ft_strlcpy(buff, str, (i + 1));
-    // ft_lstadd_back(shell, ft_lstnew(type));
+        printf("S %s\n", buff);
+    ft_lstadd_back(shell, ft_lstnew(buff, 1));
 }
 
-char    *get_double_quoted(char *str, int quoeted, int *index,t_9aw9aw3 *cmd)
+void    get_double_quoted(char *str, int *index, t_a9aw9o3 **shell)
 {
     char    *buff;
     int     i;
 
     i = 0;
-    if (quoeted == 1)
-    {
-        while (str[i] != 39)
-            ++i;
-    }
-    else if (quoeted == 2)
-    {
-        while (str[i] != 34)
-            ++i;
-    }
+    while (str[i] != 34)
+        ++i;
     while (str[i])
     {
-        if (ft_charchr(str[i], " <|> ") == 1 && get_qoutes(str, i) == 0)
+        if (ft_charchr(str[i], " <|> ") && !get_qoutes(str, i))
             break;
         ++i;
     }
     *index = i;
     buff = (char *)malloc(sizeof(char) * (i + 1));
     if (!buff)
-        return (NULL);
+        return ;
     ft_strlcpy(buff, str, (i + 1));
-    return (buff);
+    printf("D %s\n", buff);
+    ft_lstadd_back(shell, ft_lstnew(buff, 2));
 }
 
-void    process_cmd(char *str)
+t_a9aw9o3   *process_cmd(char *str)
 {
+    t_a9aw9o3   *tokens;
     char        *buff;
-    t_9aw9aw3   *cmd;
     int         i;
 
     i = 0;
-    cmd = locate_struct();
-    int len = ft_strlen(str);
-    while (i < len)
+    tokens = NULL;
+    while (str[i])
     {
-        if ((str[i] == '\"' || str[i] == '\''))
+        if (str[i] == '\"')
         {
-            buff = get_str(str, get_qoutes(str, i + 1), &i, cmd);
-            printf("quoted %s\n", buff);
-            free(buff);
+            get_double_quoted(str + i, &i, &tokens);
         }
-        else if (get_qoutes(str, i) == 0 && ft_charchr(str[i], " <|>\"\'") == 0)
+        else if (str[i] == '\'')
         {
-            
+            get_single_qoted(str + i, &i, &tokens);
         }
-        else if (str[i] == ' ' || str[i] == '\"' || str[i] == '\'')
+        else if (!get_qoutes(str, i) && !ft_charchr(str[i], " <|>\"\'"))
+        {
+            get_none_quoted(str + i, &i, &tokens);
+        }
+        else if (ft_charchr(str[i], "<|>;") && !get_qoutes(str, i))
+        {
+            get_meta_chars(str + i, &i, &tokens);
+        }
+        else if (str[i] == ' ')
             ++i;
+        // printf("stoped %c\n",str[i]);
     }
+    return (tokens);
 }
 
 #include <string.h>
 
 int main(int ac, char **ar)
 {
-    // char *str = "\"hello\"  ''' hello again nega '''  ";
-    // char *str = ' "world" ';
-    // char *input = readline("minishell $");
+    
     process_cmd(ar[1]);
     return (0);
 }

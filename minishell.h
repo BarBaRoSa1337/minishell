@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/16 18:21:35 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/17 10:21:13 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int         ft_strchr(char *s, char *find);
 size_t	    ft_strlen(const char *str);
 int         check_syntax(char *str);
 int         check_quotes(char *str);
-t_a9aw9o3	*ft_lstnew(char *arg);
+t_a9aw9o3	*ft_lstnew(char *arg, int quote_type);
 
 #endif

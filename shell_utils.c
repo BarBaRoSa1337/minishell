@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:54:09 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/13 11:36:43 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/17 10:20:30 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_lstadd_back(t_a9aw9o3 **lst, t_a9aw9o3 *new)
 	head->next = new;
 }
 
-t_a9aw9o3	*ft_lstnew(char *arg)
+t_a9aw9o3	*ft_lstnew(char *arg, int quote_type)
 {
 	t_a9aw9o3	*node;
 
@@ -37,11 +37,12 @@ t_a9aw9o3	*ft_lstnew(char *arg)
 	if (!node)
 		return (NULL);
 	node->cmd = arg;
+	node->quoted = quote_type;
 	node->next = NULL;
 	return (node);
 }
 
-static int	check(char c, char *set)
+int	check(char c, char *set)
 {
 	size_t	i;
 
