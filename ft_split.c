@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 23:19:42 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/01 12:52:54 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:10:56 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static size_t	ft_count_words(char *str, int c)
 {
-	size_t	i;
 	size_t	words;
+	size_t	i;
 
 	i = 0;
 	words = 0;

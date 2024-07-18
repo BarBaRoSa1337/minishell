@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/13 12:34:14 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:16:58 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strdup(const char *str)
 
 int	ft_charchr(char c, char *find)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (find[i])
