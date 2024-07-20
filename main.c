@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/18 10:46:42 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/20 10:23:08 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void    get_meta_chars(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-    printf("M %s\n", buff);
+    // printf("M %s\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 0));
 }
 
@@ -37,7 +37,7 @@ void    get_none_quoted(char *str, int *index, t_a9aw9o3 **shell)
     i = 0;
     while (str[i])
     {
-        if (ft_charchr(str[i], " <|> "))
+        if (ft_charchr(str[i], " <|> ") && get_qoutes(str, i) == 0)
             break;
         ++i;
     }
@@ -46,14 +46,14 @@ void    get_none_quoted(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-    printf("N %s\n", buff);
+    // printf("N %s\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 0));
 }
 
 void    get_single_qoted(char *str, int *index, t_a9aw9o3 **shell)
 {
     char    *buff;
-    int i;
+    int     i;
 
     i = 0;
     while (str[i] != 39)
@@ -69,7 +69,7 @@ void    get_single_qoted(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-        printf("S %c\n", buff[i]);
+    // printf("S %s\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 1));
 }
 
@@ -92,7 +92,7 @@ void    get_double_quoted(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-    printf("D %c\n", buff[i]);
+    // printf("D +%s+\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 2));
 }
 
@@ -106,25 +106,31 @@ t_a9aw9o3   *process_cmd(char *str)
     tokens = NULL;
     while (str[i])
     {
-        // if (str[i] == '\"')
-        // {
-        //     get_double_quoted(str, &i, &tokens);
-        // }
-        // else if (str[i] == '\'')
-        // {
-        //     get_single_qoted(str, &i, &tokens);
-        // }
-        if (!get_qoutes(str, i) && !ft_charchr(str[i], " <|>\"\'"))
+        if (str[i] == '\"')
+        {
+            get_double_quoted(str + i, &i, &tokens);
+        }
+        else if (str[i] == '\'')
+        {
+            get_single_qoted(str + i, &i, &tokens);
+        }
+        else if (!get_qoutes(str, i) && !ft_charchr(str[i], " <|>\"\'"))
         {
             get_none_quoted(str + i, &i, &tokens);
         }
         else if (ft_charchr(str[i], "<|>;") && !get_qoutes(str, i))
         {
-            sleep(1);
             get_meta_chars(str + i, &i, &tokens);
         }
         else if (str[i] == ' ')
             ++i;
+    }
+    process_red(tokens);
+    sanitize_tokens(tokens);
+    while (tokens)
+    {
+        printf("%s %d\n", tokens->cmd, tokens->type);
+        tokens = tokens->next;
     }
     return (tokens);
 }
@@ -135,6 +141,9 @@ int main(int ac, char **ar)
 {
     char *input = readline("minishell $:");
     process_cmd(input);
+    free (input);
+    char    *str = "''";
+    // printf("%d\n", get_qoutes(str, 0));
     // read_history(input);
     // printf("%s\n", getenv("USER"));
     return (0);

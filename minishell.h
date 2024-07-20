@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/17 11:44:28 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/20 10:22:47 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 #define APP_OUT 5
 #define DOG 6
 #define PIPE 7
-#define N_CMD 8
 
 typedef struct s_9aw9a3
 {
@@ -41,12 +40,11 @@ typedef struct s_9aw9a3
 typedef struct s_a9aw9o3
 {
     struct s_a9aw9o3    *next;
+    char                *cmd;
     int     quoted;
     int     type;
-    char                *cmd;
 } t_a9aw9o3;
 
-t_9aw9aw3   *locate_struct(void);
 char	    *ft_substr(char const *s, unsigned int start, size_t len);
 size_t	    ft_strlcpy(char *dst, char *src, size_t dstsize);
 void	    ft_lstadd_back(t_a9aw9o3 **lst, t_a9aw9o3 *new);
@@ -58,6 +56,8 @@ int	        ft_charchr(char c, char *find);
 int         ft_strchr(char *s, char *find);
 size_t	    ft_strlen(const char *str);
 int         check_syntax(char *str);
+void    process_red(t_a9aw9o3 *cmd);
+void    sanitize_tokens(t_a9aw9o3 *cmd);
 int         check_quotes(char *str);
 t_a9aw9o3	*ft_lstnew(char *arg, int quote_type);
 

@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/17 18:16:58 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/20 10:05:57 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ int	ft_strchr(char *s, char *find)
 		while (find[j])
 		{
 			if (s[i] == find[j])
-				return (0);
+				return (1);
 			++j;
 		}
 		++i;
 	}
-	return(1);
+	return(0);
 }
 
 size_t	ft_strlen(const char *str)

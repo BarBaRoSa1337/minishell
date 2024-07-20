@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:38:41 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/17 12:02:54 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:01:53 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void    sanitize_tokens(t_a9aw9o3 *cmd)
 {
+    int         before;
     t_a9aw9o3   *head;
     t_9aw9aw3   info;
-    int         before;
 
-    before = 0;
     head = cmd;
+    before = 0; 
     info.cmd_found = 0;
     while (head)
     {
@@ -37,7 +37,7 @@ void    sanitize_tokens(t_a9aw9o3 *cmd)
         }
         else if (info.cmd_found == 1 && head->type == 0)
             head->type = 2;
-        else if (head->type == 7 || head->type == 8)
+        else if (head->type == 7)
             info.cmd_found = 0;
         head = head->next;
     }
@@ -46,39 +46,26 @@ void    sanitize_tokens(t_a9aw9o3 *cmd)
 void    process_red(t_a9aw9o3 *cmd)
 {
     t_a9aw9o3   *head;
+    char        *str;
 
     head = cmd;
     while (head)
     {
-        if (head->quoted == 0 && ft_strchr(head->cmd, ">"))
-            head->type = 3;
-        else if (head->quoted == 0 && ft_strchr(head->cmd, ">>"))
+        str = head->cmd;
+        if (head->quoted == 0 && str[0] == '>' && str[1] == '>')
             head->type = 5;
+        else if (head->quoted == 0 && ft_strchr(head->cmd, ">"))
+            head->type = 3;
+        else if (head->quoted == 0 && str[0] == '<' && str[1] == '<')
+            head->type = 6;
         else if (head->quoted == 0 && ft_strchr(head->cmd, "<"))
             head->type = 4;
-        else if (head->quoted == 0 && ft_strchr(head->cmd, "<<"))
-            head->type = 6;
         else if (head->quoted == 0 && ft_strchr(head->cmd, "|"))
             head->type = 7;
-        else if (head->quoted == 0 && ft_strchr(head->cmd, ";"))
-            head->type = 8;
+        else
+            head->type = 0;
         head = head->next;
     }
-}
-
-t_9aw9aw3   *locate_struct(void)
-{
-    t_9aw9aw3   *cmd;
-
-    cmd = malloc(sizeof(t_9aw9aw3));
-    if (!cmd)
-        return (NULL);
-    cmd->cmd_found = 0;
-    cmd->index = 0;
-    cmd->s = 0;
-    cmd->d = 0;
-    cmd->tmp = NULL;
-    return (cmd);
 }
 
 // char    *expander(char *str)
