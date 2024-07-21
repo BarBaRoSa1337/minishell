@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/20 10:22:47 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:29:57 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@
 #define DOG 6
 #define PIPE 7
 
-typedef struct s_9aw9a3
-{
-    int cmd_found;
-    char    *tmp;
-    int index;
-    int s;
-    int d;
-} t_9aw9aw3;
-
 typedef struct s_a9aw9o3
 {
     struct s_a9aw9o3    *next;
@@ -44,6 +35,21 @@ typedef struct s_a9aw9o3
     int     quoted;
     int     type;
 } t_a9aw9o3;
+
+typedef struct s_arg
+{
+    char *arg;
+    struct s_arg *next;
+} t_arg;
+
+typedef struct s_shell
+{                   
+    int in;
+    int out;                      
+    char *cmd;
+    t_arg *args;
+    struct s_shell *next;                       
+} t_shell;
 
 char	    *ft_substr(char const *s, unsigned int start, size_t len);
 size_t	    ft_strlcpy(char *dst, char *src, size_t dstsize);

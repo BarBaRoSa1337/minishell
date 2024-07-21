@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/21 11:08:18 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:47:46 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ void process_cmd(char *str)
     }
     process_red(tokens);
     sanitize_tokens(tokens);
+    expander(tokens);
+    fill_struct(&tokens);
     while (tokens)
     {
         printf("%s %d\n", tokens->cmd, tokens->type);
