@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/20 10:23:08 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:08:18 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void    get_double_quoted(char *str, int *index, t_a9aw9o3 **shell)
     ft_lstadd_back(shell, ft_lstnew(buff, 2));
 }
 
-t_a9aw9o3   *process_cmd(char *str)
+void process_cmd(char *str)
 {
     t_a9aw9o3   *tokens;
     char        *buff;
@@ -132,7 +132,8 @@ t_a9aw9o3   *process_cmd(char *str)
         printf("%s %d\n", tokens->cmd, tokens->type);
         tokens = tokens->next;
     }
-    return (tokens);
+    free (str);
+    process_cmd(readline("minishell$:"));
 }
 
 #include <string.h>
@@ -141,10 +142,6 @@ int main(int ac, char **ar)
 {
     char *input = readline("minishell $:");
     process_cmd(input);
-    free (input);
-    char    *str = "''";
-    // printf("%d\n", get_qoutes(str, 0));
     // read_history(input);
-    // printf("%s\n", getenv("USER"));
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:38:41 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/20 12:01:53 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:21:48 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void    sanitize_tokens(t_a9aw9o3 *cmd)
     info.cmd_found = 0;
     while (head)
     {
-        if (head->type > 2 && head->type < 9)
+        if (head->type > 2 && head->type < 7)
             before = head->type;
         else if (before != 0)
         {
             head->type = before;
             before = 0;
         }
-        else if (info.cmd_found == 0 && head->type == 0)
+        else if (info.cmd_found == 0)
         {
             info.cmd_found = 1;
             head->type = 1;
@@ -65,6 +65,35 @@ void    process_red(t_a9aw9o3 *cmd)
         else
             head->type = 0;
         head = head->next;
+    }
+}
+
+char    *remove_quotes(t_a9aw9o3 **tokens)
+{
+    t_a9aw9o3   *iter;
+    char        *buff;
+    int         i;
+    int         j;
+
+    iter = *tokens;
+    while (iter)
+    {
+        buff = iter->cmd;
+        i = 0;
+        while (buff[i])
+            if (get_qoutes(buff, i) > 0)
+                ++i;
+        j = 0;
+        buff = (char *)malloc((sizeof(char) * i + 1));
+        i = 0;
+        while (iter->cmd[i])
+        {
+            if (get_qoutes(iter->cmd, i) > 0)
+                buff[j++] = iter->cmd[i];
+            else
+                ++i;
+        }
+        iter = iter->next;
     }
 }
 

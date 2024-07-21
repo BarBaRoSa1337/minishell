@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/20 10:05:57 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:11:59 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,33 +88,4 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 		*(dst + i) = '\0';
 	}
 	return (srclen);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	slen;
-	char	*sub;
-
-	if (s == NULL)
-	{
-		return (NULL);
-	}
-	slen = ft_strlen(s);
-	if (start >= slen)
-	{
-		sub = malloc(1);
-		sub[0] = '\0';
-		return (sub);
-	}
-	if (len > slen)
-	{
-		len = ft_strlen(s + start);
-	}
-	sub = (char *)malloc(sizeof(char) * len + 1);
-	if (!sub)
-	{
-		return (NULL);
-	}
-	ft_strlcpy(sub, (char *)s + start, len + 1);
-	return (sub);
 }
