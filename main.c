@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/21 11:47:46 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:02:00 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,18 @@ void process_cmd(char *str)
     }
     process_red(tokens);
     sanitize_tokens(tokens);
-    expander(tokens);
-    fill_struct(&tokens);
+    remove_quotes(tokens);
+    // expander(tokens);
+    // fill_struct(&tokens);
+    int j = 0;
     while (tokens)
     {
-        printf("%s %d\n", tokens->cmd, tokens->type);
+        printf("tokens %s\n", tokens->cmd);
+        // while (tokens->cmd[j])
+        // {
+        //     printf("%c %d\n", tokens->cmd[j], get_qoutes(tokens->cmd, j));
+        //     ++j;
+        // }
         tokens = tokens->next;
     }
     free (str);

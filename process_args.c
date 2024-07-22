@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:38:41 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/21 11:45:37 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:02:17 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,92 +68,86 @@ void    process_red(t_a9aw9o3 *cmd)
     }
 }
 
-void    remove_quotes(t_a9aw9o3 **tokens)
+char    *ft_replace(char *cmd, int len)
 {
-    t_a9aw9o3   *iter;
-    char        *buff;
-    int         i;
-    int         j;
+    int     i;
+    int     j;
+    char    *buff;
+    char    *tmp;
+    int     flag;
 
-    iter = *tokens;
-    while (iter)
+    i = 0;
+    j = 0;
+    flag = 0;
+    tmp = cmd;
+    buff = malloc(sizeof(char) * len + 1);
+    if (!buff)
+        return (NULL);
+    while (cmd[i])
     {
-        buff = iter->cmd;
-        i = 0;
-        while (buff[i])
-            if (get_qoutes(buff, i) > 0)
-                ++i;
-        j = 0;
-        buff = (char *)malloc((sizeof(char) * i + 1));
-        i = 0;
-        while (iter->cmd[i])
+        if (cmd[i] == '\'' && flag == 0)
         {
-            if (get_qoutes(iter->cmd, i) > 0)
-                buff[j++] = iter->cmd[i];
+            ++i;
+            flag = 1;
+        }
+        else if (cmd[i] == '\"' && flag == 0)
+        {
+            flag = 2;
+            ++i;
+        }
+        else if (cmd[i] == '\'' && flag == 1)
+        {
+            ++i;
+            flag = 0;
+        }
+        else if (cmd[i] == '\"' && flag == 2)
+        {
+            flag = 0;
+            ++i;
+        }
+        else
+            buff[j++] = cmd[i++];
+    }
+    buff[j] = '\0';
+    return (free(tmp), buff);
+}
+
+
+void    remove_quotes(t_a9aw9o3 *bash)
+{
+    int         flag;
+    int         i , j;
+
+    flag = 0;
+    while (bash)
+    {
+        i = j = 0;
+        while (bash->cmd[i + j])
+        {
+            if (bash->cmd[i + j] == '\'' && flag == 0)
+            {
+                ++j;
+                flag = 1;
+            }
+            else if (bash->cmd[i + j] == '\"' && flag == 0)
+            {
+                flag = 2;
+                ++j;
+            }
+            else if (bash->cmd[i + j] == '\'' && flag == 1)
+            {
+                ++j;
+                flag = 0;
+            }
+            else if (bash->cmd[i + j] == '\"' && flag == 2)
+            {
+                flag = 0;
+                ++j;
+            }
             else
                 ++i;
         }
-        iter = iter->next;
+        bash->cmd = ft_replace(bash->cmd, i);
+        bash = bash->next;
     }
 }
-
-void    fill_struct(t_a9aw9o3 **cmd)
-{
-    t_a9aw9o3   *iter;
-    t_shell     *tokens;
-    t_arg       *arg_strct;
-    int i;
-
-    i = 0;
-    tokens = tokens_new();
-    iter = *cmd;
-    while (iter)
-    {
-        if (iter->type == 1)
-            (tokens + i)->cmd = ft_strdup(iter->cmd);
-        else if (iter->type == 2)
-            // ft_lstadd_back(&arg_strct);// creat this
-        else if (iter->type == 3)
-            (tokens + i)->out = open(iter->next->cmd, O_RDWR|O_CREAT, 0666);
-        else if (iter->type == 5)
-            (tokens + i)->out = open(iter->next->cmd, O_RDWR|O_CREAT|O_APPEND, 0666);
-        else if (iter->type == 4)
-        {
-            (tokens + i)->out = open(iter->next->cmd, O_RDWR, 0666);
-            if ((tokens + i)->out == -1)
-                printf("infile:%s not found\n", iter->next->cmd);
-        }
-        else if (iter->type == 6)
-            her_dog(iter->next->cmd);
-        else if (iter->type == 7)
-        {
-            tokens = tokens_new();// and this
-            i ++;
-        }
-        if (iter->next)
-            iter = iter->next;
-    }
-    tokens->args = arg_strct;
-}
-
-// char    *expander(char *str)
-// {
-//     char    *buff;
-//     char    *exp;
-//     int     i;
-//     int     j;
-
-//     i = 0;
-//     while (str[i])
-//     {
-//         if (str[i] == '$' && get_qoutes(str, i) != 1)
-//         {
-//             exp = getenv(get_name(str[i], &j));
-//             buff = ft_strjoin(str , exp, &i);
-//             ft_strjoin(buff, str + j, &i);
-//             break ;
-//         }
-//         ++i;
-//     }
-//     return (buff);
-// }
