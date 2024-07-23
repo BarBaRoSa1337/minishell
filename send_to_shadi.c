@@ -6,11 +6,11 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:44:45 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/23 11:07:49 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:37:31 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <minishell.h>
 
 t_shell *tokens_new(void)
 {
@@ -50,14 +50,14 @@ void	lst_rje3_lor(t_arg **lst, char *cmd)
 
 t_shell *fill_struct(t_a9aw9o3 **cmd)
 {
-    t_a9aw9o3   *iter;
-    t_shell     *tokens;
     t_arg       *arg_strct;
+    t_shell     *tokens;
+    t_a9aw9o3   *iter;
     int         i;
 
     i = 0;
-    tokens = tokens_new();
     iter = *cmd;
+    tokens = tokens_new();
     while (iter)
     {
         if (iter->type == 1)
@@ -66,12 +66,12 @@ t_shell *fill_struct(t_a9aw9o3 **cmd)
         {
             lst_rje3_lor(&arg_strct, iter->cmd);
         }
-        // else if (iter->type == 3 && !ft_strchr(iter->cmd, ">"))
-        // {
-        //     if ((tokens + i)->out != 1)
-        //         close ((tokens + i)->out);
-        //     (tokens + i)->out = open(iter->cmd, O_RDWR|O_CREAT, 777);
-        // }
+        else if (iter->type == 3 && !ft_strchr(iter->cmd, ">"))
+        {
+            if ((tokens + i)->out != 1)
+                close ((tokens + i)->out);
+            (tokens + i)->out = open(iter->cmd, O_RDWR|O_CREAT, 777);
+        }
         // else if (iter->type == 5 && !ft_strchr(iter->cmd, ">>"))
         // {
         //     close((tokens + i)->out);
@@ -84,7 +84,7 @@ t_shell *fill_struct(t_a9aw9o3 **cmd)
         //     if ((tokens + i)->out == -1)
         //         printf("infile:%s not found\n", iter->cmd);
         // }
-        // else if (iter->type == 6)
+        // else if (iter->type == 6 && !ft_strchr(iter->cmd), "<<")
         //     her_dog(iter->next->cmd);
         // else if (iter->type == 7)
         // {
@@ -97,24 +97,36 @@ t_shell *fill_struct(t_a9aw9o3 **cmd)
     return (tokens);
 }
 
-// char    *expander(char *str)
-// {
-//     char    *buff;
-//     char    *exp;
-//     int     i;
-//     int     j;
+int is_alpha(char c)
+{
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+        return (1);
+    return (0);
+}
 
-//     i = 0;
-//     while (str[i])
-//     {
-//         if (str[i] == '$' && get_qoutes(str, i) != 1)
-//         {
-//             exp = getenv(get_name(str[i], &j));
-//             buff = ft_strjoin(str , exp, &i);
-//             ft_strjoin(buff, str + j, &i);
-//             break ;
-//         }
-//         ++i;
-//     }
-//     return (buff);
-// }
+char    *expander(t_a9aw9o3 *tokens, t_arg *env)//need a get_env function to get the env value and the linked list of env values
+{
+    char    *buff;
+    int     i;
+    int     j;
+
+    while (tokens)
+    {
+        i = 0;
+        while (tokens->cmd[i])
+        {
+            if (tokens->cmd[i] == '$')
+            {
+                while (!is_alpha(tokens->cmd[i]))
+                    ++i;
+                while (is_alpha(tokens->cmd[i + j]))
+                    ++j;
+                buff = (char *)malloc(size_t(char));
+                while (is_alpha(tokens->cmd[i + j]))
+                    buff[i + j] = tokens->cmd[i + j];
+                char *exp = get_env(buff);
+            }
+        }
+        tokens = tokens->next;
+    }
+}

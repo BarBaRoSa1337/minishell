@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/23 10:21:26 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:43:29 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_shell
     struct s_shell *next;                       
 } t_shell;
 
+void zre3_btata_dk_lflah(char *str);
 t_shell *fill_struct(t_a9aw9o3 **cmd);
 char	*ft_strdup(const char *str);
 void    remove_quotes(t_a9aw9o3 *tokens);
