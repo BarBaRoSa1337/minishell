@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/23 10:35:20 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:19:35 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,17 +128,16 @@ void process_cmd(char *str)
     process_red(tokens);
     sanitize_tokens(tokens);
     remove_quotes(tokens);
-    // expander(tokens);
     t_shell *lst = fill_struct(&tokens);
     printf("cmd %s\n", lst->cmd);
-    printf("in %d\n", lst->in);
     printf("out %d\n", lst->out);
-    // t_arg *gg = lst->args;
-    // while (gg)
-    // {
-    //     printf("args %s\n", gg->arg);
-    //     gg = gg->next;
-    // }
+    printf("in %d\n", lst->in);
+    t_arg *gg = lst->args;
+    while (gg)
+    {
+        printf("args %s \n", gg->arg);
+        gg = gg->next;
+    }
     free (str);
     process_cmd(readline("minishell$:"));
 }
