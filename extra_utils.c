@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/13 11:58:09 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:11:59 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strdup(const char *str)
 
 int	ft_charchr(char c, char *find)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (find[i])
@@ -53,12 +53,12 @@ int	ft_strchr(char *s, char *find)
 		while (find[j])
 		{
 			if (s[i] == find[j])
-				return (0);
+				return (1);
 			++j;
 		}
 		++i;
 	}
-	return(1);
+	return(0);
 }
 
 size_t	ft_strlen(const char *str)
@@ -88,29 +88,4 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 		*(dst + i) = '\0';
 	}
 	return (srclen);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	slen;
-	char	*sub;
-
-	if (s == NULL)
-	{
-		return (NULL);
-	}
-	slen = ft_strlen(s);
-	if (start >= slen)
-	{
-		return (ft_calloc(1, 1));
-	}
-	if (len > slen)
-	{
-		len = ft_strlen(s + start);
-	}
-	sub = (char *)malloc(sizeof(char) * len + 1);
-	if (!sub)
-		return (NULL);
-	ft_strlcpy(sub, (char *)s + start, len + 1);
-	return (sub);
 }

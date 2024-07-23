@@ -1,8 +1,8 @@
-SRCS = ft_split.c main.c shell_utils.c extra_utils.c 9aw9a3a_utils.c
+SRCS = main.c shell_utils.c extra_utils.c 9aw9a3a_utils.c process_args.c send_to_shadi.c
 
 OBJ = $(SRCS:.c=.o)
 
-CFLAGS =
+CFLAGS = -lcurses -lreadline -fsanitize=address
 NAME = minishell
 RM = rm -f
 CC = cc
@@ -12,10 +12,10 @@ all:$(NAME)
 $(NAME):$(OBJ)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) -c $< -o $@
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME)
+	@$(CC) $(OBJ) $(CFLAGS) -o $(NAME)
 
 clean:
 	@$(RM) $(OBJ)

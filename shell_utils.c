@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:54:09 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/13 11:36:43 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:11:39 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_lstadd_back(t_a9aw9o3 **lst, t_a9aw9o3 *new)
 	head->next = new;
 }
 
-t_a9aw9o3	*ft_lstnew(char *arg)
+t_a9aw9o3	*ft_lstnew(char *arg, int quote_type)
 {
 	t_a9aw9o3	*node;
 
@@ -37,43 +37,9 @@ t_a9aw9o3	*ft_lstnew(char *arg)
 	if (!node)
 		return (NULL);
 	node->cmd = arg;
+	node->quoted = quote_type;
 	node->next = NULL;
 	return (node);
-}
-
-static int	check(char c, char *set)
-{
-	size_t	i;
-
-	i = 0;
-	while (set[i])
-	{
-		if (set[i] == c)
-			return (1);
-		++i;
-	}
-	return (0);
-}
-
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	char	*buff;
-	size_t	start;
-	size_t	end;
-
-	end = ft_strlen(s1);
-	start = 0;
-	while (check(s1[start], (char *)set) && start < end)
-		++start;
-	--end;
-	while (check(s1[end], (char *)set) && end > start)
-		--end;
-	++end;
-	buff = (char *)malloc(sizeof(char) * (end - start + 1));
-	if (!buff)
-		return (NULL);
-	ft_strlcpy(buff, (char *)s1 + start, end - start + 1);
-	return (buff);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)

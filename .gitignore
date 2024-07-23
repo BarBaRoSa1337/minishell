@@ -1,2 +1,5 @@
 *.o
 *.out
+islamic_script
+print
+minishell
