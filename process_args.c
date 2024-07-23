@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:38:41 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/22 11:02:17 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:35:55 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ char    *ft_replace(char *cmd, int len)
     buff[j] = '\0';
     return (free(tmp), buff);
 }
-
 
 void    remove_quotes(t_a9aw9o3 *bash)
 {

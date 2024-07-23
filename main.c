@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/22 11:02:00 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:35:20 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void process_cmd(char *str)
         {
             get_none_quoted(str + i, &i, &tokens);
         }
-        else if (ft_charchr(str[i], "<|>;") && !get_qoutes(str, i))
+        else if (ft_charchr(str[i], "<|>") && !get_qoutes(str, i))
         {
             get_meta_chars(str + i, &i, &tokens);
         }
@@ -129,18 +129,16 @@ void process_cmd(char *str)
     sanitize_tokens(tokens);
     remove_quotes(tokens);
     // expander(tokens);
-    // fill_struct(&tokens);
-    int j = 0;
-    while (tokens)
-    {
-        printf("tokens %s\n", tokens->cmd);
-        // while (tokens->cmd[j])
-        // {
-        //     printf("%c %d\n", tokens->cmd[j], get_qoutes(tokens->cmd, j));
-        //     ++j;
-        // }
-        tokens = tokens->next;
-    }
+    t_shell *lst = fill_struct(&tokens);
+    printf("cmd %s\n", lst->cmd);
+    printf("in %d\n", lst->in);
+    printf("out %d\n", lst->out);
+    // t_arg *gg = lst->args;
+    // while (gg)
+    // {
+    //     printf("args %s\n", gg->arg);
+    //     gg = gg->next;
+    // }
     free (str);
     process_cmd(readline("minishell$:"));
 }
@@ -151,6 +149,7 @@ int main(int ac, char **ar)
 {
     char *input = readline("minishell $:");
     process_cmd(input);
+    // write(5,"hello",6);
     // read_history(input);
     return (0);
 }

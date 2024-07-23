@@ -6,50 +6,95 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:44:45 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/22 10:45:09 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:54:55 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void    fill_struct(t_a9aw9o3 **cmd)
-// {
-//     t_a9aw9o3   *iter;
-//     t_shell     *tokens;
-//     t_arg       *arg_strct;
-//     int i;
+t_shell *tokens_new(void)
+{
+    t_shell *new;
 
-//     i = 0;
-//     tokens = tokens_new();
-//     iter = *cmd;
-//     while (iter)
-//     {
-//         if (iter->type == 1)
-//             (tokens + i)->cmd = ft_strdup(iter->cmd);
-//         else if (iter->type == 2)
-//             // ft_lstadd_back(&arg_strct);// creat this
-//         else if (iter->type == 3)
-//             (tokens + i)->out = open(iter->next->cmd, O_RDWR|O_CREAT, 0666);
-//         else if (iter->type == 5)
-//             (tokens + i)->out = open(iter->next->cmd, O_RDWR|O_CREAT|O_APPEND, 0666);
-//         else if (iter->type == 4)
-//         {
-//             (tokens + i)->out = open(iter->next->cmd, O_RDWR, 0666);
-//             if ((tokens + i)->out == -1)
-//                 printf("infile:%s not found\n", iter->next->cmd);
-//         }
-//         else if (iter->type == 6)
-//             her_dog(iter->next->cmd);
-//         else if (iter->type == 7)
-//         {
-//             tokens = tokens_new();// and this
-//             i ++;
-//         }
-//         if (iter->next)
-//             iter = iter->next;
-//     }
-//     tokens->args = arg_strct;
-// }
+    new = malloc(sizeof(t_shell));
+    if (!new)
+        return (NULL);
+    new->next = NULL;
+    new->args = NULL;
+    new->cmd = NULL;
+    new->out = 1;
+    new->in = 0;
+    return (new);
+}
+
+void	lst_rje3_lor(t_arg **lst, char *cmd)
+{
+	t_arg   *head;
+    t_arg   *new;
+
+    new = malloc(sizeof(t_arg));
+	if (!new || lst == NULL)
+		return ;
+    new->arg = cmd;
+    new->next = NULL;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	head = *lst;
+	while (head->next != NULL)
+		head = head->next;
+	head->next = new;
+}
+
+t_shell *fill_struct(t_a9aw9o3 **cmd)
+{
+    t_a9aw9o3   *iter;
+    t_shell     *tokens;
+    t_arg       *arg_strct;
+    int         i;
+
+    i = 0;
+    tokens = tokens_new();
+    iter = *cmd;
+    while (iter)
+    {
+        if (iter->type == 1)
+            (tokens + i)->cmd = ft_strdup(iter->cmd);
+        // else if (iter->type == 2)
+        //     lst_rje3_lor(&arg_strct, iter->cmd);
+        else if (iter->type == 3 && !ft_strchr(iter->cmd, ">"))
+        {
+            if ((tokens + i)->out != 1)
+                close ((tokens + i)->out);
+            (tokens + i)->out = open(iter->cmd, O_RDWR|O_CREAT, 777);
+        }
+        else if (iter->type == 5 && !ft_strchr(iter->cmd, ">>"))
+        {
+            close((tokens + i)->out);
+            (tokens + i)->out = open(iter->cmd, O_RDWR|O_CREAT|O_APPEND, 777);
+        }
+        else if (iter->type == 4 && !ft_strchr(iter->cmd, "<"))
+        {
+            close((tokens + i)->in);
+            (tokens + i)->out = open(iter->cmd, O_RDWR, 777);
+            if ((tokens + i)->out == -1)
+                printf("infile:%s not found\n", iter->cmd);
+        }
+        // else if (iter->type == 6)
+        //     her_dog(iter->next->cmd);
+        // else if (iter->type == 7)
+        // {
+        //     tokens->args = arg_strct;
+        //     tokens->next = tokens_new();
+        //     ++i;
+        // }
+        iter = iter->next;
+    }
+    write(tokens->out, "hello 123", 9);
+    return (tokens);
+}
 
 // char    *expander(char *str)
 // {

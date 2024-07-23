@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/22 10:55:23 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:21:26 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_shell
     struct s_shell *next;                       
 } t_shell;
 
+t_shell *fill_struct(t_a9aw9o3 **cmd);
+char	*ft_strdup(const char *str);
 void    remove_quotes(t_a9aw9o3 *tokens);
 size_t	    ft_strlcpy(char *dst, char *src, size_t dstsize);
 void	    ft_lstadd_back(t_a9aw9o3 **lst, t_a9aw9o3 *new);
