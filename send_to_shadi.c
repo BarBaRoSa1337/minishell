@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:44:45 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/24 10:29:15 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:36:25 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ t_shell *fill_struct(t_a9aw9o3 **cmd)
     t_arg       *arg_strct;
     t_shell     *tokens;
     t_a9aw9o3   *iter;
-    int         i;
+    t_shell     *head;
 
-    i = 0;
-    arg_strct = NULL;
     tokens = tokens_new();
+    arg_strct = NULL;
+    head = tokens;
     iter = *cmd;
     while (iter)
     {
         if (iter->type == 1)
-            (tokens + i)->cmd = ft_strdup(iter->cmd);
+            (tokens)->cmd = ft_strdup(iter->cmd);
         else if (iter->type == 2)
             lst_rje3_lor(&arg_strct, arg_new(ft_strdup(iter->cmd)));
         // else if (iter->type == 3 && !ft_strchr(iter->cmd, ">"))
@@ -97,15 +97,17 @@ t_shell *fill_struct(t_a9aw9o3 **cmd)
         //     her_dog(iter->cmd);
         if (iter->type == 7 || iter->next == NULL)
         {
-            (tokens + i)->args = arg_strct;
+            (tokens)->args = arg_strct;
             arg_strct = NULL;
             if (iter->type == 7)
-                (tokens + i)->next = tokens_new();
-            ++i;
+            {
+                (tokens)->next = tokens_new();
+                tokens = tokens->next;
+            }
         }
         iter = iter->next;
     }
-    return (tokens);
+    return (head);
 }
 
 // char    *expander(char *str)

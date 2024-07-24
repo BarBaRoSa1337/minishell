@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/24 10:24:18 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:23:45 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ void process_cmd(char *str)
             printf("args %s \n", gg->arg);
             gg = gg->next;
         }
-        lst = lst->next;
         printf("------------------------\n");
+        lst = lst->next;
     }
     // free (str);
     process_cmd(readline("minishell$:"));
