@@ -6,7 +6,7 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:44:45 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/23 11:07:49 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:29:15 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,24 @@ t_shell *tokens_new(void)
     return (new);
 }
 
-void	lst_rje3_lor(t_arg **lst, char *cmd)
+t_arg   *arg_new(char *cmd)
 {
-	t_arg   *head;
     t_arg   *new;
 
     new = malloc(sizeof(t_arg));
-	if (!new || lst == NULL)
-		return ;
+    if (!new)
+        return (NULL);
     new->arg = ft_strdup(cmd);
     new->next = NULL;
+    return (new);
+}
+
+void	lst_rje3_lor(t_arg **lst, t_arg *new)
+{
+	t_arg   *head;
+
+	if (!new || !lst)
+		return ;
 	if (*lst == NULL)
 	{
 		*lst = new;
@@ -50,12 +58,13 @@ void	lst_rje3_lor(t_arg **lst, char *cmd)
 
 t_shell *fill_struct(t_a9aw9o3 **cmd)
 {
-    t_a9aw9o3   *iter;
-    t_shell     *tokens;
     t_arg       *arg_strct;
+    t_shell     *tokens;
+    t_a9aw9o3   *iter;
     int         i;
 
     i = 0;
+    arg_strct = NULL;
     tokens = tokens_new();
     iter = *cmd;
     while (iter)
@@ -63,9 +72,7 @@ t_shell *fill_struct(t_a9aw9o3 **cmd)
         if (iter->type == 1)
             (tokens + i)->cmd = ft_strdup(iter->cmd);
         else if (iter->type == 2)
-        {
-            lst_rje3_lor(&arg_strct, iter->cmd);
-        }
+            lst_rje3_lor(&arg_strct, arg_new(ft_strdup(iter->cmd)));
         // else if (iter->type == 3 && !ft_strchr(iter->cmd, ">"))
         // {
         //     if ((tokens + i)->out != 1)
@@ -74,24 +81,28 @@ t_shell *fill_struct(t_a9aw9o3 **cmd)
         // }
         // else if (iter->type == 5 && !ft_strchr(iter->cmd, ">>"))
         // {
-        //     close((tokens + i)->out);
+        //    if ((tokens + i)->out != 1)
+        //      close((tokens + i)->out);
         //     (tokens + i)->out = open(iter->cmd, O_RDWR|O_CREAT|O_APPEND, 777);
         // }
         // else if (iter->type == 4 && !ft_strchr(iter->cmd, "<"))
         // {
-        //     close((tokens + i)->in);
-        //     (tokens + i)->out = open(iter->cmd, O_RDWR, 777);
-        //     if ((tokens + i)->out == -1)
+        //    if ((tokens + i)->in != 1)
+        //      close((tokens + i)->in);
+        //     (tokens + i)->in = open(iter->cmd, O_RDWR, 777);
+        //     if ((tokens + i)->in == -1)
         //         printf("infile:%s not found\n", iter->cmd);
         // }
-        // else if (iter->type == 6)
-        //     her_dog(iter->next->cmd);
-        // else if (iter->type == 7)
-        // {
-        //     tokens->next = tokens_new();
-        //     ++i;
-        // }
-        (tokens + i)->args = arg_strct;
+        // else if (iter->type == 6 && !ft_strchr(iter->cmd, "<<"))
+        //     her_dog(iter->cmd);
+        if (iter->type == 7 || iter->next == NULL)
+        {
+            (tokens + i)->args = arg_strct;
+            arg_strct = NULL;
+            if (iter->type == 7)
+                (tokens + i)->next = tokens_new();
+            ++i;
+        }
         iter = iter->next;
     }
     return (tokens);
