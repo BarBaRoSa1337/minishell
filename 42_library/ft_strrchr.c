@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../execution.h"
 
 char	*ft_strrchr(const char *s, int c)
 {

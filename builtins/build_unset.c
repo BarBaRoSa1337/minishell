@@ -1,19 +1,25 @@
-#include "../minishell.h"
+#include "../execution.h"
 
-void    build_unset(char *str, t_env **v)
+void    build_unset(char **str, t_env **v)
 {
     t_env *head;
-        t_env *tmp;
+    t_env *tmp;
+    int i;
 
     head = (*v);
     while(head)
     {
-        if (ft_strncmp(head->key, str, sizeof(head->key)) == 0)
+        i = 0;
+        while(str[i])
         {
-            //delete node
-            tmp->next = head->next;
-            free(head);
-            break;
+            if (ft_strncmp(str[i], head->key, sizeof(str[i])) == 0)
+            {
+                //delete node
+                tmp->next = head->next;
+                free(head);
+                break;
+            }
+            i++;
         }
         tmp = head;
         head = head->next;

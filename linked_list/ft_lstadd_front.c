@@ -1,7 +1,7 @@
 
-#include "../minishell.h"
+#include "../execution.h"
 
-void	ft_lstadd_front(t_minishell **lst, t_minishell *new)
+void	ft_lstadd_front(t_ms **lst, t_ms *new)
 {
 	if (!lst)
 		return ;

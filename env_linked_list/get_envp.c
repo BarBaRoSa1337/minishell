@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../execution.h"
 
 void get_envp(char **envp, t_env **head)
 {

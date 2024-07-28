@@ -1,12 +1,63 @@
-#include "../minishell.h"
+#include "../execution.h"
 
-void build_echo(char *str, int nl, int fd)
+int its_n(char *str)
 {
-    if (str)
+    int i;
+    
+    i = 0;
+    if (str[i] == '-')
+        i++;
+    else
+        return (-1);
+    while(str[i])
     {
-        ft_putstr_fd(str, fd);
-        if (nl == 1)
-            ft_putchar_fd('\n', fd);
+        if (str[i] == 'n')
+            i++;
+        else
+            return (-1);
     }
+    return (1);
+}
+
+void build_echo(char **arg, int fd)
+{
+    int i;
+    int nl;
+
+    i = 0;
+    nl = 1;
+    if (!arg || !arg[0])
+    {
+        ft_putstr("\n", fd);
+        return ;
+    }
+    while (arg[i])
+    {
+        if (arg[0][0] == '-')
+        {
+            if (its_n(arg[0]) == 1)
+                nl = 0;
+            else 
+                nl = 1;
+            i++;
+        }
+        else if (arg[i][0] == '-')
+        {
+            if (its_n(arg[0]) == 1)
+                i++;
+            else 
+                break ;
+        }
+        else
+            break ;
+    }
+    while (arg[i])
+    {
+        ft_putstr_fd(arg[i], fd);
+        ft_putchar_fd(' ', fd);
+        i++;
+    }
+    if (nl == 1)
+        ft_putchar_fd('\n', fd);
     return ;
 }

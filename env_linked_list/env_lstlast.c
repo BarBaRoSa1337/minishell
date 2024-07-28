@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../execution.h"
 
 t_env	*env_lstlast(t_env *lst)
 {

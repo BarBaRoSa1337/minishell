@@ -1,9 +1,9 @@
 
-#include "../minishell.h"
+#include "../execution.h"
 
-void	ft_lstadd_back(t_minishell **lst, t_minishell *new)
+void	ft_lstadd_back(t_ms **lst, t_ms *new)
 {
-	t_minishell	*last;
+	t_ms	*last;
 
 	if (!(*lst))
 	{

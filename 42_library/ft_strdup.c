@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../minishell.h"
+#include "../execution.h"
 
 char	*ft_strdup(const char *s1)
 {

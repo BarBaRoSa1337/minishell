@@ -1,11 +1,11 @@
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef EXECUTION_H
+# define EXECUTION_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
 
-# define PATH_SIZE 500
+# define PATH_SIZE 5000
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -65,7 +65,7 @@ t_ms			*ft_lstlast(t_ms *lst);
 void				ft_lstadd_back(t_ms **lst, t_ms *new);
 void				ft_lstadd_front(t_ms **lst, t_ms *new);
 
-/**********************     LIBFT    **********************/
+/**********************     LIBFT    ***********************/
 
 char	*ft_itoa(int n);
 int		ft_isalnum(int c);
@@ -102,7 +102,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
-/******************* printf  ********************/
+/********************* printf  **********************/
 
 int			ft_putnbr(int c, int len);
 int			ft_putchar(char c, int len);
@@ -114,13 +114,7 @@ int			ft_put_adress(unsigned long decimal, int len);
 int			ft_decimal_to_hex(unsigned long decimal, int len);
 int			ft_decimal_to_hexa(unsigned int decimal, int len);
 
-/**************** pipex  *******************/
-
-void	    check_cmd(t_ms **e, t_env *v);
-char		*if_accessible(char *cmd, char *env);
-void		ft_pipe(char **av, char **env, t_var *var);
-
-/**************** get_next_line  *******************/
+/******************* get_next_line  *******************/
 
 char		*get_next_line(int fd);
 char		*returnline(char *buffer);
@@ -150,14 +144,12 @@ void env_lstadd_front(t_env **lst, t_env *new);
 void	ft_free(char **ptr);
 char    *searsh_env(t_env *v);
 int     multiple_arg(char **ptr);
+void    check_cmd(t_ms **e, t_env *v);
 int     simple_execute(t_ms *e, char **env);
+char	*if_accessible(char *cmd, char *env);
 int     execute_builtins(t_ms *e, t_env **v);
+void	ft_pipe(char **av, char **env, t_var *var);
 void    forming_list(t_ms **my_struct, t_shell *shell);
 void    execute_cmd(t_ms **e, t_env *v, char **envp, int tmp);
-
-void    node_1(t_shell **e);
-void    node_2(t_shell **e);
-void    node_3(t_shell **e);
-t_shell	*new_node(void);
 
 # endif
