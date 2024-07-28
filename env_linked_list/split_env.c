@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../execution.h"
 
 t_env *split_env(char *str)
 {

@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../execution.h"
 
 int its_n(char *str)
 {

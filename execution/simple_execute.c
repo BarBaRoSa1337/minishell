@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../execution.h"
 
 int	simple_execute(t_ms *e, char **env)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../execution.h"
 
 int	convert_ascii(const char *str, int i)
 {
