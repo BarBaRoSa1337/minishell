@@ -6,11 +6,11 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/21 11:11:59 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/28 10:11:09 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 char	*ft_strdup(const char *str)
 {

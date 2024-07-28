@@ -6,20 +6,20 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:38:41 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/23 10:35:55 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/28 10:16:40 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 void    sanitize_tokens(t_a9aw9o3 *cmd)
 {
-    int         before;
     int         cmd_found;
+    int         before;
     t_a9aw9o3   *head;
     
-    before = 0; 
     head = cmd;
+    before = 0;
     cmd_found = 0;
     while (head)
     {
@@ -95,7 +95,7 @@ char    *ft_replace(char *cmd, int len)
             flag = 2;
             ++i;
         }
-        else if (cmd[i] == '\'' && flag == 1)
+        else if ((cmd[i] == '\'' && flag == 1) || (cmd[i] == '\"' && flag == 2))
         {
             ++i;
             flag = 0;

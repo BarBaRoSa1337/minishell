@@ -1,4 +1,4 @@
-SRCS = main.c shell_utils.c extra_utils.c 9aw9a3a_utils.c process_args.c send_to_shadi.c
+SRCS = main.c shell_utils.c extra_utils.c 9aw9a3a_utils.c process_args.c send_to_shadi.c get_next_line1.c
 
 OBJ = $(SRCS:.c=.o)
 

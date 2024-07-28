@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parsing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:33:43 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/23 10:21:26 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:55:03 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-#define  MINISHELL_H
+#ifndef PARSING_H
+#define  PARSING_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <unistd.h> 
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 13
+# endif
+
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 #define CMD 1
 #define FLAG 2
@@ -34,6 +42,7 @@ typedef struct s_a9aw9o3
     char                *cmd;
     int     quoted;
     int     type;
+    int     err;
 } t_a9aw9o3;
 
 typedef struct s_arg
@@ -43,28 +52,34 @@ typedef struct s_arg
 } t_arg;
 
 typedef struct s_shell
-{                   
+{
     int in;
-    int out;                      
+    int out;
     char *cmd;
     t_arg *args;
-    struct s_shell *next;                       
+    int     err;
+    struct s_shell *next;
 } t_shell;
 
-t_shell *fill_struct(t_a9aw9o3 **cmd);
-char	*ft_strdup(const char *str);
-void    remove_quotes(t_a9aw9o3 *tokens);
+char	*get_next_line(int fd);
+char	*ft_strjoin_exp(char *s1, char *s2, int index);
+char	*ft_strjoin(char *s1, char *s2);
 size_t	    ft_strlcpy(char *dst, char *src, size_t dstsize);
 void	    ft_lstadd_back(t_a9aw9o3 **lst, t_a9aw9o3 *new);
-char	    *ft_strjoin(char const *s1, char const *s2);
+t_a9aw9o3	*ft_lstnew(char *arg, int quote_type);
+void        remove_quotes(t_a9aw9o3 *tokens);
 int         get_qoutes(char *str, int index);
+void        sanitize_tokens(t_a9aw9o3 *cmd);
 int	        ft_charchr(char c, char *find);
 int         ft_strchr(char *s, char *find);
+void        zre3_btata_dk_lflah(char *str);
+t_shell     *fill_struct(t_a9aw9o3 **cmd);
+void        expander(t_a9aw9o3 *tokens);
+int is_alpha(char c);
+void        process_red(t_a9aw9o3 *cmd);
+char	    *ft_strdup(const char *str);
 size_t	    ft_strlen(const char *str);
 int         check_syntax(char *str);
-void    process_red(t_a9aw9o3 *cmd);
-void    sanitize_tokens(t_a9aw9o3 *cmd);
 int         check_quotes(char *str);
-t_a9aw9o3	*ft_lstnew(char *arg, int quote_type);
 
 #endif

@@ -1,2 +1,0 @@
-#!/bin/bash
-make re && make clean && echo -n "." && echo "." && echo "توكل على الله" && echo "mode activated secsacfully"

@@ -6,11 +6,11 @@
 /*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:36:58 by achakour          #+#    #+#             */
-/*   Updated: 2024/07/24 11:23:45 by achakour         ###   ########.fr       */
+/*   Updated: 2024/07/28 10:10:41 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "parsing.h"
 
 void    get_meta_chars(char *str, int *index, t_a9aw9o3 **shell)
 {
@@ -25,7 +25,6 @@ void    get_meta_chars(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-    // printf("M %s\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 0));
 }
 
@@ -46,7 +45,6 @@ void    get_none_quoted(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-    // printf("N %s\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 0));
 }
 
@@ -69,7 +67,6 @@ void    get_single_qoted(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-    // printf("S %s\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 1));
 }
 
@@ -92,11 +89,10 @@ void    get_double_quoted(char *str, int *index, t_a9aw9o3 **shell)
     if (!buff)
         return ;
     ft_strlcpy(buff, str, (i + 1));
-    // printf("D +%s+\n", buff);
     ft_lstadd_back(shell, ft_lstnew(buff, 2));
 }
 
-void process_cmd(char *str)
+void zre3_btata_dk_lflah(char *str)
 {
     t_a9aw9o3   *tokens;
     char        *buff;
@@ -127,24 +123,20 @@ void process_cmd(char *str)
     }
     process_red(tokens);
     sanitize_tokens(tokens);
-    remove_quotes(tokens);
+    expander(tokens);
+    // remove_quotes(tokens);
     t_shell *lst = fill_struct(&tokens);
-    while (lst)
+    printf("cmd %s\n", lst->cmd);
+    printf("out %d\n", lst->out);
+    printf("in %d\n", lst->in);
+    t_arg *gg = lst->args;
+    while (gg)
     {
-        printf("cmd %s\n", lst->cmd);
-        printf("out %d\n", lst->out);
-        printf("in %d\n", lst->in);
-        t_arg *gg = lst->args;
-        while (gg)
-        {
-            printf("args %s \n", gg->arg);
-            gg = gg->next;
-        }
-        printf("------------------------\n");
-        lst = lst->next;
+        printf("args %s \n", gg->arg);
+        gg = gg->next;
     }
-    // free (str);
-    process_cmd(readline("minishell$:"));
+    free (str);
+    zre3_btata_dk_lflah(readline("minishell$:"));
 }
 
 #include <string.h>
@@ -152,7 +144,12 @@ void process_cmd(char *str)
 int main(int ac, char **ar)
 {
     char *input = readline("minishell $:");
-    process_cmd(input);
+    zre3_btata_dk_lflah(input);
+    // int fd = open("out", O_RDWR|O_CREAT);
+    // printf("%d\n", fd);
+    // // close(fd);
+    // fd = open("out", O_RDWR);
+    // printf("%d\n", fd);
     // write(5,"hello",6);
     // read_history(input);
     return (0);
