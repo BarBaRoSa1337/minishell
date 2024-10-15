@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csaidi <csaidi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:30:08 by csaidi            #+#    #+#             */
-/*   Updated: 2023/12/18 18:14:22 by csaidi           ###   ########.fr       */
+/*   Updated: 2024/08/20 12:08:01 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, void *src, size_t n)
 {
-	size_t		i;
-	char		*destination;
-	const char	*source;
+	size_t	i;
+	char	*destination;
+	char	*source;
 
 	destination = dest;
 	source = src;

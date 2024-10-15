@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csaidi <csaidi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/04 17:38:42 by csaidi            #+#    #+#             */
+/*   Updated: 2024/09/04 17:38:58 by csaidi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstadd_front(t_minishell **lst, t_minishell *new)
+void	ft_lstadd_front(t_ms **lst, t_ms *new)
 {
 	if (!lst)
 		return ;

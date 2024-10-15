@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csaidi <csaidi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:13:07 by csaidi            #+#    #+#             */
-/*   Updated: 2023/12/17 13:12:26 by csaidi           ###   ########.fr       */
+/*   Updated: 2024/08/20 12:08:01 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "../minishell.h"
 
-int	ft_count(const char *s, char c)
+int	ft_count(char *s, char c)
 {
-	int		i;
-	int		count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -33,7 +32,7 @@ int	ft_count(const char *s, char c)
 	return (count);
 }
 
-static	char	*ft_copysubstr(char *s, int len, int i)
+static char	*ft_copysubstr(char *s, int len, int i)
 {
 	char	*little;
 	int		j;
@@ -54,10 +53,10 @@ static void	*ft_free_memory(char **ptr, int l)
 {
 	while (l >= 0)
 	{
-		free (ptr[l]);
+		free(ptr[l]);
 		l--;
 	}
-	free (ptr);
+	free(ptr);
 	return (NULL);
 }
 
@@ -90,7 +89,7 @@ char	**ft_alloc(char *s, char c, char **ptr)
 	return (ptr);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	int		count;
 	char	**ptr;

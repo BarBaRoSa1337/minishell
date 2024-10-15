@@ -1,33 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: csaidi <csaidi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 11:49:51 by achakour          #+#    #+#             */
+/*   Updated: 2024/09/11 10:31:22 by csaidi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void    builtins(char *str, t_env **v)
+int	g_exit_status = 0;
+
+void	ft_minishell(char *input, t_env **env)
 {
-    if (ft_strncmp(str, "cd\n", sizeof(str)) == 0)
-        build_cd("..");
-    else if (ft_strncmp(str, "echo\n", sizeof(str)) == 0)
-        build_echo("salam", 1, 1);
-    else if (ft_strncmp(str, "unset\n", sizeof(str)) == 0)
-        build_unset("PATH", v);
-    else if (ft_strncmp(str, "pwd\n", sizeof(str)) == 0)
-        build_pwd();
-    else if (ft_strncmp(str, "export\n", sizeof(str)) == 0)
-        build_export("wa fine", v);
-    else if (ft_strncmp(str, "env\n", sizeof(str)) == 0)
-        build_env((*v));
-    else if (ft_strncmp(str, "exit\n", sizeof(str)) == 0)
-        build_exit(1);
-    else
-        printf("dinied\n");
+	t_shell	*shell;
+	char	**envp;
+	t_ms	*ms;
+
+	shell = parsing(input, *env);
+	ms = forming_list(shell, 0);
+	envp = env_to_ptr(*env);
+	execute_cmd(&ms, env, envp, 0);
+	ft_free(envp);
+	free_ms(&ms);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **ar, char **envp)
 {
-    t_env *v = NULL;
-    t_shell *p = NULL;
-    t_minishell *e = NULL; 
-    
-    get_envp(env, &v);
-    parssing(ac, av, env, &p);
-    forming_list(&e, p);
-    execute_cmd(e);
-} 
+	char	*input;
+	t_env	*env;
+
+	(void)ac;
+	(void)ar;
+	env = NULL;
+	get_envp(envp, &env);
+	while (1)
+	{
+		signal(SIGINT, handler);
+		signal(SIGQUIT, SIG_IGN);
+		input = readline("minishell $:");
+		signal(SIGQUIT, sig_quit);
+		signal(SIGINT, sig);
+		if (!input)
+		{
+			free_env(&env);
+			exit(0);
+		}
+		add_history(input);
+		ft_minishell(input, &env);
+	}
+	return (0);
+}

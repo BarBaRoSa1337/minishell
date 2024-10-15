@@ -6,31 +6,26 @@
 /*   By: csaidi <csaidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:31:02 by csaidi            #+#    #+#             */
-/*   Updated: 2023/12/14 10:04:15 by csaidi           ###   ########.fr       */
+/*   Updated: 2024/09/04 17:36:37 by csaidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
 {
-	size_t	len;
-	size_t	i;
-	size_t	j;
+	size_t	srclen;
+	size_t	dstlen;
 
-	if (!dst && !dstsize)
-		return (ft_strlen(src));
-	len = ft_strlen(dst);
-	if (dstsize <= len)
-		return (ft_strlen(src) + dstsize);
-	i = 0;
-	j = len;
-	while (src[i] && i < dstsize - (len + 1))
+	dstlen = ft_strlen(dst);
+	srclen = ft_strlen(src);
+	if (dstlen >= dstsize)
 	{
-		dst[j] = src[i];
-		i++;
-		j++;
+		return (srclen + dstsize);
 	}
-	dst[j] = '\0';
-	return (len + ft_strlen(src));
+	if (0 < dstsize - dstlen - 1)
+	{
+		ft_strlcpy(dst + dstlen, src, dstsize - dstlen);
+	}
+	return (dstlen + srclen);
 }

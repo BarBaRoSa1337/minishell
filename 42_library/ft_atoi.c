@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csaidi <csaidi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:29:27 by csaidi            #+#    #+#             */
-/*   Updated: 2023/12/17 13:11:20 by csaidi           ###   ########.fr       */
+/*   Updated: 2024/08/20 12:08:01 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	convert_ascii(const char *str, int i)
+int	convert_ascii(char *str, int i)
 {
 	int	n;
 
@@ -25,11 +25,11 @@ int	convert_ascii(const char *str, int i)
 	return (n);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(char *str)
 {
-	int		i;
-	int		l;
-	int		result;
+	int	i;
+	int	l;
+	int	result;
 
 	i = 0;
 	l = 1;

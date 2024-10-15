@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csaidi <csaidi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:13:51 by csaidi            #+#    #+#             */
-/*   Updated: 2023/12/18 16:48:08 by csaidi           ###   ########.fr       */
+/*   Updated: 2024/08/20 12:08:01 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_alloc_void(char *str)
 	return (str);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char *set)
 {
 	size_t	i;
 	size_t	len;
@@ -36,18 +36,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	i = 0;
 	len--;
 	while (len && ft_strchr(set, s1[len]))
-			len--;
+		len--;
 	while (s1[i + 1] != '\0' && ft_strchr(set, s1[i]))
 		i++;
 	if (len < i)
 		return (ft_alloc_void(s));
 	return (ft_substr(s1, i, len - i + 1));
 }
-// int main()
-// {
-// 	char str[] = "abcdba";
-// 	char set[] = "ab";
-
-// 	// ft_strtrim(str, set);
-// 	printf("string = %s\n", ft_strtrim(str, set));
-// }

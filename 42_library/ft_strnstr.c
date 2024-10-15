@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csaidi <csaidi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achakour <achakour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:31:18 by csaidi            #+#    #+#             */
-/*   Updated: 2023/12/17 13:19:00 by csaidi           ###   ########.fr       */
+/*   Updated: 2024/08/20 12:08:01 by achakour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr(char *haystack, char *needle, size_t len)
 {
 	size_t	size;
 
@@ -22,12 +22,12 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	while (needle[size] != '\0' && size <= len)
 		size++;
 	if (size == 0)
-		return ((char *) haystack);
+		return ((char *)haystack);
 	while (*haystack != '\0' && len >= size)
 	{
 		if (*needle == *haystack && ft_strncmp(haystack, needle, size) == 0)
 		{
-			return ((char *) haystack);
+			return ((char *)haystack);
 		}
 		haystack++;
 		len--;
